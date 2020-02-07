@@ -1,0 +1,16 @@
+language: php
+
+php:
+  - 7.2
+  - 7.3
+  - 7.4
+
+install:
+  - composer install
+
+script:
+  - mkdir -p logs
+  - phpunit --configuration .phpunit.travis.xml test
+
+after_script:
+  - php vendor/bin/php-coveralls -v

@@ -1,0 +1,8 @@
+/logs
+/vendor
+
+/.idea/*
+!/.idea/codeStyles/
+!/.idea/dictionaries/
+!/.idea/encodings.xml
+!/.idea/inspectionProfiles/
