@@ -1,8 +1,8 @@
 <?php
 
-namespace HJerichen\ObjectFactory\TestHelpers;
+namespace HJerichen\ClassInstantiator\TestHelpers;
 
-use HJerichen\ObjectFactory\ClassInstantiator;
+use HJerichen\ClassInstantiator\ClassInstantiator;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>

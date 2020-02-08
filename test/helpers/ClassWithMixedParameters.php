@@ -1,6 +1,6 @@
 <?php
 
-namespace HJerichen\ObjectFactory\TestHelpers;
+namespace HJerichen\ClassInstantiator\TestHelpers;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>

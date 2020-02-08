@@ -1,8 +1,8 @@
 <?php
 
-namespace HJerichen\ObjectFactory;
+namespace HJerichen\ClassInstantiator;
 
-use HJerichen\ObjectFactory\Exception\InstantiateParameterException;
+use HJerichen\ClassInstantiator\Exception\InstantiateParameterException;
 use ReflectionParameter;
 
 /**

@@ -1,14 +1,14 @@
 <?php
 
-namespace HJerichen\ObjectFactory;
+namespace HJerichen\ClassInstantiator;
 
 use Exception;
-use HJerichen\ObjectFactory\Exception\InstantiateParameterException;
-use HJerichen\ObjectFactory\TestHelpers\ClassInstantiatorExtended;
-use HJerichen\ObjectFactory\TestHelpers\ClassWithIntegerParameter;
-use HJerichen\ObjectFactory\TestHelpers\ClassWithSimpleDependency;
-use HJerichen\ObjectFactory\TestHelpers\ClassWithTwoIntegerParameters;
-use HJerichen\ObjectFactory\TestHelpers\SimpleClass;
+use HJerichen\ClassInstantiator\Exception\InstantiateParameterException;
+use HJerichen\ClassInstantiator\TestHelpers\ClassInstantiatorExtended;
+use HJerichen\ClassInstantiator\TestHelpers\ClassWithIntegerParameter;
+use HJerichen\ClassInstantiator\TestHelpers\ClassWithSimpleDependency;
+use HJerichen\ClassInstantiator\TestHelpers\ClassWithTwoIntegerParameters;
+use HJerichen\ClassInstantiator\TestHelpers\SimpleClass;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use TypeError;

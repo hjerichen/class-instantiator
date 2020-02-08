@@ -14,8 +14,8 @@
     },
     "autoload": {
         "psr-4": {
-            "HJerichen\\ObjectFactory\\": "src/",
-            "HJerichen\\ObjectFactory\\TestHelpers\\": "test/helpers/"
+            "HJerichen\\ClassInstantiator\\": "src/",
+            "HJerichen\\ClassInstantiator\\TestHelpers\\": "test/helpers/"
         }
     },
     "require-dev": {

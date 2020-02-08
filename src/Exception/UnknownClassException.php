@@ -1,6 +1,6 @@
 <?php
 
-namespace HJerichen\ObjectFactory\Exception;
+namespace HJerichen\ClassInstantiator\Exception;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>

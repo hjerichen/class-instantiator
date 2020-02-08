@@ -1,6 +1,6 @@
 <?php
 
-namespace HJerichen\ObjectFactory;
+namespace HJerichen\ClassInstantiator;
 
 use ReflectionMethod;
 use ReflectionParameter;

@@ -1,8 +1,8 @@
 <?php
 
-namespace HJerichen\ObjectFactory;
+namespace HJerichen\ClassInstantiator;
 
-use HJerichen\ObjectFactory\Exception\UnknownClassException;
+use HJerichen\ClassInstantiator\Exception\UnknownClassException;
 use ReflectionClass;
 use ReflectionException;
 

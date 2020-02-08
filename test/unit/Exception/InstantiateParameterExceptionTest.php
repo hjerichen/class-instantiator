@@ -1,8 +1,8 @@
 <?php
 
-namespace HJerichen\ObjectFactory\Exception;
+namespace HJerichen\ClassInstantiator\Exception;
 
-use HJerichen\ObjectFactory\TestHelpers\ClassWithIntegerParameter;
+use HJerichen\ClassInstantiator\TestHelpers\ClassWithIntegerParameter;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 

@@ -1,22 +1,22 @@
 <?php
 
-namespace HJerichen\ObjectFactory;
+namespace HJerichen\ClassInstantiator;
 
-use HJerichen\ObjectFactory\Exception\InstantiateParameterException;
-use HJerichen\ObjectFactory\Exception\UnknownClassException;
-use HJerichen\ObjectFactory\TestHelpers\ClassInstantiatorExtended;
-use HJerichen\ObjectFactory\TestHelpers\ClassWithDependencyOfEnvironment;
-use HJerichen\ObjectFactory\TestHelpers\ClassWithDependencyOfIntegerClass;
-use HJerichen\ObjectFactory\TestHelpers\ClassWithDependencyOfInterface;
-use HJerichen\ObjectFactory\TestHelpers\ClassWithIntegerParameter;
-use HJerichen\ObjectFactory\TestHelpers\ClassWithMixedParameters;
-use HJerichen\ObjectFactory\TestHelpers\ClassWithSimpleDependency;
-use HJerichen\ObjectFactory\TestHelpers\ClassWithTwoIntegerParameters;
-use HJerichen\ObjectFactory\TestHelpers\ClassWithTwoSimpleDependencies;
-use HJerichen\ObjectFactory\TestHelpers\Environment;
-use HJerichen\ObjectFactory\TestHelpers\SimpleClass;
-use HJerichen\ObjectFactory\TestHelpers\SomeInterface;
-use HJerichen\ObjectFactory\TestHelpers\SomeInterfaceImplementation;
+use HJerichen\ClassInstantiator\Exception\InstantiateParameterException;
+use HJerichen\ClassInstantiator\Exception\UnknownClassException;
+use HJerichen\ClassInstantiator\TestHelpers\ClassInstantiatorExtended;
+use HJerichen\ClassInstantiator\TestHelpers\ClassWithDependencyOfEnvironment;
+use HJerichen\ClassInstantiator\TestHelpers\ClassWithDependencyOfIntegerClass;
+use HJerichen\ClassInstantiator\TestHelpers\ClassWithDependencyOfInterface;
+use HJerichen\ClassInstantiator\TestHelpers\ClassWithIntegerParameter;
+use HJerichen\ClassInstantiator\TestHelpers\ClassWithMixedParameters;
+use HJerichen\ClassInstantiator\TestHelpers\ClassWithSimpleDependency;
+use HJerichen\ClassInstantiator\TestHelpers\ClassWithTwoIntegerParameters;
+use HJerichen\ClassInstantiator\TestHelpers\ClassWithTwoSimpleDependencies;
+use HJerichen\ClassInstantiator\TestHelpers\Environment;
+use HJerichen\ClassInstantiator\TestHelpers\SimpleClass;
+use HJerichen\ClassInstantiator\TestHelpers\SomeInterface;
+use HJerichen\ClassInstantiator\TestHelpers\SomeInterfaceImplementation;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
