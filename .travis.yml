@@ -9,7 +9,7 @@ install:
 
 script:
   - mkdir -p logs
-  - phpunit --configuration .phpunit.travis.xml test
+  - phpunit --configuration .phpunit.travis.xml tests
 
 after_script:
   - php vendor/bin/php-coveralls -v
