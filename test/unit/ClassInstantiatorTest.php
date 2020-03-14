@@ -165,6 +165,13 @@ class ClassInstantiatorTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testInstantiateHimself(): void
+    {
+        $expected = new ClassInstantiator();
+        $actual = $this->classInstantiator->instantiateClass(ClassInstantiator::class);
+        $this->assertEquals($expected, $actual);
+    }
+
 
     /* HELPERS */
 }
