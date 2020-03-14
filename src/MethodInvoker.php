@@ -2,8 +2,8 @@
 
 namespace HJerichen\ClassInstantiator;
 
-use ReflectionException;
 use ReflectionMethod;
+use Throwable;
 use TypeError;
 
 /**
@@ -16,7 +16,7 @@ class MethodInvoker
      */
     private $classInstantiator;
     /**
-     * @var array|callable
+     * @var callable
      */
     private $methodCallable;
 
@@ -46,9 +46,9 @@ class MethodInvoker
         try {
             [$object, $method] = $this->methodCallable;
             return new ReflectionMethod($object, $method);
-        } catch(ReflectionException $exception) {
-            $message = sprintf('Invalid callable [%s, %s]', get_class($object), $method);
-            throw new TypeError($message);
+        } catch(Throwable $throwable) {
+            $message = sprintf('Failed creating reflection method: %s', $throwable->getMessage());
+            throw new TypeError($message, $throwable->getCode(), $throwable);
         }
     }
 }

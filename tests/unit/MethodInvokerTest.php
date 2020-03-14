@@ -107,6 +107,15 @@ class MethodInvokerTest extends TestCase
         $this->methodInvoker->invokeMethod($methodCallable);
     }
 
+    public function testInvokingFunctionInsteadOfMethod(): void
+    {
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('Failed creating reflection method:');
+
+        $methodCallable = static function() {};
+        $this->methodInvoker->invokeMethod($methodCallable);
+    }
+
 
     /* HELPERS */
 
