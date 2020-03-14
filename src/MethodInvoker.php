@@ -25,19 +25,12 @@ class MethodInvoker
         $this->classInstantiator = $classInstantiator;
     }
 
-    /**
-     * @param array|callable $methodCallable
-     * @param array $predefinedArguments
-     * @return mixed
-     */
-    public function invokeMethod(array $methodCallable, array $predefinedArguments = [])
+    public function invokeMethod(callable $methodCallable, array $predefinedArguments = [])
     {
         $this->methodCallable = $methodCallable;
 
         $parameters = $this->buildParameters($predefinedArguments);
-        $reflectionMethod = $this->createReflectionMethod();
-        $reflectionMethod->setAccessible(true);
-        return $reflectionMethod->invokeArgs($this->methodCallable[0], $parameters);
+        return $methodCallable(...$parameters);
     }
 
     private function buildParameters(array $predefinedArguments): array

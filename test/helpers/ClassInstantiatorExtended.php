@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnused */
+/** @noinspection UnusedConstructorDependenciesInspection */
 
 namespace HJerichen\ClassInstantiator\TestHelpers;
 
@@ -14,7 +16,6 @@ class ClassInstantiatorExtended extends ClassInstantiator
      */
     private $environment;
 
-    /** @noinspection UnusedConstructorDependenciesInspection */
     public function __construct()
     {
         $this->environment = new Environment(4);
@@ -35,8 +36,7 @@ class ClassInstantiatorExtended extends ClassInstantiator
         return new ClassWithSimpleDependency($simpleClass);
     }
 
-    /** @noinspection PhpUnusedPrivateMethodInspection */
-    private function createSome(): SomeInterface
+    public function createSome(): SomeInterface
     {
         return new SomeInterfaceImplementation();
     }
