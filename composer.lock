@@ -4,8 +4,51 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ae03e170587c7e901b143afeec97ba9",
-    "packages": [],
+    "content-hash": "2dc1a5d42ef00af6954693b7dbf2fe81",
+    "packages": [
+        {
+            "name": "hjerichen/collections",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hjerichen/collections.git",
+                "reference": "ea0f4b6650c910838686c0c71d8a25ec24b49077"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hjerichen/collections/zipball/ea0f4b6650c910838686c0c71d8a25ec24b49077",
+                "reference": "ea0f4b6650c910838686c0c71d8a25ec24b49077",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "^8.0",
+                "roave/security-advisories": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HJerichen\\Collections\\": "src/",
+                    "HJerichen\\Collections\\TestHelpers\\": "tests/helpers/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Heiko Jerichen",
+                    "email": "heiko@jerichen.de"
+                }
+            ],
+            "description": "Collections for daily use.",
+            "time": "2020-03-14T14:35:00+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",
