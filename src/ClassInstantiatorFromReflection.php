@@ -2,6 +2,8 @@
 
 namespace HJerichen\ClassInstantiator;
 
+use HJerichen\Collections\Reflection\ReflectionMethodCollection;
+use HJerichen\Collections\Reflection\ReflectionPropertyCollection;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -72,13 +74,11 @@ class ClassInstantiatorFromReflection
         return null;
     }
 
-    /**
-     * @return array<ReflectionMethod>
-     */
-    private function getMethodsFromClassInstantiator(): array
+    private function getMethodsFromClassInstantiator(): ReflectionMethodCollection
     {
         $ownReflection = new ReflectionClass($this->classInstantiator);
-        return $ownReflection->getMethods();
+        $methods = $ownReflection->getMethods();
+        return new ReflectionMethodCollection($methods);
     }
 
     private function instantiateClassWithExtensionProperty(): ?object
@@ -100,13 +100,11 @@ class ClassInstantiatorFromReflection
         return null;
     }
 
-    /**
-     * @return array<ReflectionProperty>
-     */
-    private function getPropertiesOfClassInstantiator(): array
+    private function getPropertiesOfClassInstantiator(): ReflectionPropertyCollection
     {
         $ownReflection = new ReflectionClass($this->classInstantiator);
-        return $ownReflection->getProperties();
+        $properties = $ownReflection->getProperties();
+        return new ReflectionPropertyCollection($properties);
     }
 
 }

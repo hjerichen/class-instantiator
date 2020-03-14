@@ -3,6 +3,7 @@
 namespace HJerichen\ClassInstantiator;
 
 use HJerichen\ClassInstantiator\Exception\InstantiateParameterException;
+use HJerichen\Collections\Reflection\ReflectionParameterCollection;
 use ReflectionParameter;
 
 /**
@@ -24,19 +25,12 @@ class ArgumentForParameterBuilder
         $this->classInstantiator = $classInstantiator;
     }
 
-    /**
-     * @param array<mixed> $predefinedArguments
-     */
     public function setPredefinedArguments(array $predefinedArguments): void
     {
         $this->predefinedArguments = $predefinedArguments;
     }
 
-    /**
-     * @param array<ReflectionParameter> $parameters
-     * @return array<mixed>
-     */
-    public function buildArgumentsForParameters(array $parameters): array
+    public function buildArgumentsForParameters(ReflectionParameterCollection $parameters): array
     {
         $arguments = [];
         foreach ($parameters as $parameter) {

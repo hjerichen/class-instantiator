@@ -2,8 +2,8 @@
 
 namespace HJerichen\ClassInstantiator;
 
+use HJerichen\Collections\Reflection\ReflectionParameterCollection;
 use ReflectionClass;
-use ReflectionParameter;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
@@ -36,18 +36,14 @@ class ArgumentsForConstructorBuilder
         return $this->buildArgumentsForParameters($parameters);
     }
 
-    /**
-     * @return array<ReflectionParameter>
-     */
-    private function getParametersOfClassConstructor(): array
+    private function getParametersOfClassConstructor(): ReflectionParameterCollection
     {
         $constructor = $this->reflectionClass->getConstructor();
-        if ($constructor === null) return [];
-
-        return $constructor->getParameters();
+        $parameters = $constructor === null ? [] : $constructor->getParameters();
+        return new ReflectionParameterCollection($parameters);
     }
 
-    private function buildArgumentsForParameters(array $parameters): array
+    private function buildArgumentsForParameters(ReflectionParameterCollection $parameters): array
     {
         return $this->argumentForParameterBuilder->buildArgumentsForParameters($parameters);
     }

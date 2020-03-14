@@ -2,8 +2,8 @@
 
 namespace HJerichen\ClassInstantiator;
 
+use HJerichen\Collections\Reflection\ReflectionParameterCollection;
 use ReflectionMethod;
-use ReflectionParameter;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
@@ -36,15 +36,13 @@ class ArgumentsForMethodBuilder
         return $this->buildArgumentsForParameters($parameters);
     }
 
-    /**
-     * @return array<ReflectionParameter>
-     */
-    private function getParametersOfMethod(): array
+    private function getParametersOfMethod(): ReflectionParameterCollection
     {
-        return $this->reflectionMethod->getParameters();
+        $parameters = $this->reflectionMethod->getParameters();
+        return new ReflectionParameterCollection($parameters);
     }
 
-    private function buildArgumentsForParameters(array $parameters): array
+    private function buildArgumentsForParameters(ReflectionParameterCollection $parameters): array
     {
         return $this->argumentForParameterBuilder->buildArgumentsForParameters($parameters);
     }
