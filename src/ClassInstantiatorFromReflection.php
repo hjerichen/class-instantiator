@@ -66,8 +66,11 @@ class ClassInstantiatorFromReflection
     {
         $methods = $this->getMethodsFromClassInstantiator();
         foreach ($methods as $method) {
-            $returnType = (string)$method->getReturnType();
-            if ($returnType === $this->wantedClass->getName()) {
+            $returnType = $method->getReturnType();
+            if ($returnType === null) continue;
+
+            /** @noinspection PhpPossiblePolymorphicInvocationInspection */
+            if ($returnType->getName() === $this->wantedClass->getName()) {
                 return $method;
             }
         }
