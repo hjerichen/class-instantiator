@@ -1,7 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace HJerichen\ClassInstantiator\Exception;
+namespace HJerichen\ClassInstantiator\Test\Unit\Exception;
 
+use HJerichen\ClassInstantiator\Exception\UnknownClassException;
 use PHPUnit\Framework\TestCase;
 
 /**

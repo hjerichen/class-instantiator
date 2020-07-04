@@ -1,8 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace HJerichen\ClassInstantiator\Exception;
+namespace HJerichen\ClassInstantiator\Test\Unit\Exception;
 
-use HJerichen\ClassInstantiator\TestHelpers\ClassWithIntegerParameter;
+use HJerichen\ClassInstantiator\Exception\ClassInstantiatorException;
+use HJerichen\ClassInstantiator\Exception\InstantiateParameterException;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassWithIntegerParameter;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 

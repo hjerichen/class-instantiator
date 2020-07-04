@@ -16,7 +16,7 @@
     "autoload": {
         "psr-4": {
             "HJerichen\\ClassInstantiator\\": "src/",
-            "HJerichen\\ClassInstantiator\\TestHelpers\\": "tests/helpers/"
+            "HJerichen\\ClassInstantiator\\Test\\": "tests"
         }
     },
     "require-dev": {

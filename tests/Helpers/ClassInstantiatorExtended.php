@@ -3,7 +3,7 @@
 /** @noinspection UnusedConstructorDependenciesInspection */
 declare(strict_types=1);
 
-namespace HJerichen\ClassInstantiator\TestHelpers;
+namespace HJerichen\ClassInstantiator\Test\Helpers;
 
 use HJerichen\ClassInstantiator\ClassInstantiator;
 
