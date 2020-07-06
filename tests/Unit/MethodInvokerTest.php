@@ -7,9 +7,11 @@ use HJerichen\ClassInstantiator\ClassInstantiator;
 use HJerichen\ClassInstantiator\Exception\InstantiateParameterException;
 use HJerichen\ClassInstantiator\MethodInvoker;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassInstantiatorExtended;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassMethodWithParameterWhoHasAnnotation;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithIntegerParameter;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithSimpleDependency;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithTwoIntegerParameters;
+use HJerichen\ClassInstantiator\Test\Helpers\Environment;
 use HJerichen\ClassInstantiator\Test\Helpers\SimpleClass;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -116,6 +118,19 @@ class MethodInvokerTest extends TestCase
 
         $methodCallable = static function() {};
         $this->methodInvoker->invokeMethod($methodCallable);
+    }
+
+    public function testInvokeMethodWithParameterHasAnnotation(): void
+    {
+        $classInstantiator = new ClassInstantiator();
+        $methodInvoker = new MethodInvoker($classInstantiator);
+
+        $class = new ClassMethodWithParameterWhoHasAnnotation();
+        $callable = [$class, 'method'];
+
+        $actual = $methodInvoker->invokeMethod($callable);
+        $expected = new Environment(4);
+        $this->assertEquals($expected, $actual);
     }
 
 

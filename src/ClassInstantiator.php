@@ -21,7 +21,7 @@ class ClassInstantiator
         return $this->instantiateClassFromReflection($reflectionClass, $predefinedArguments);
     }
 
-    private function instantiateClassFromReflection(ReflectionClass $class, $predefinedArguments): object
+    public function instantiateClassFromReflection(ReflectionClass $class, $predefinedArguments = []): object
     {
         $classInstantiatorFromReflection = new ClassInstantiatorFromReflection($this, $class);
         return $classInstantiatorFromReflection->instantiateClass($predefinedArguments);

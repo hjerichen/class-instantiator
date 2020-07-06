@@ -4,9 +4,14 @@ namespace HJerichen\ClassInstantiator\Test\Unit;
 
 use HJerichen\ClassInstantiator\ClassInstantiator;
 use HJerichen\ClassInstantiator\Exception\InstantiateParameterException;
+use HJerichen\ClassInstantiator\Exception\InstantiatorAnnotationException;
 use HJerichen\ClassInstantiator\Exception\UnknownClassException;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassInstantiatorExtended;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironment;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAnnotation;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithNotInstantiatorInAnnotation;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithUnknownAnnotation;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithWrongAnnotation;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfIntegerClass;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfInterface;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithIntegerParameter;
@@ -161,8 +166,10 @@ class ClassInstantiatorTest extends TestCase
 
     public function testInstantiateClassWithSetProperty(): void
     {
-        $expected = new ClassWithDependencyOfEnvironment(new Environment(4));
-        $actual = $this->classInstantiatorExtended->instantiateClass(ClassWithDependencyOfEnvironment::class);
+        $class = ClassWithDependencyOfEnvironment::class;
+
+        $expected = new $class(new Environment(4));
+        $actual = $this->classInstantiatorExtended->instantiateClass($class);
         $this->assertEquals($expected, $actual);
     }
 
@@ -171,6 +178,44 @@ class ClassInstantiatorTest extends TestCase
         $expected = new ClassInstantiator();
         $actual = $this->classInstantiator->instantiateClass(ClassInstantiator::class);
         $this->assertEquals($expected, $actual);
+    }
+
+    public function testInstantiateWithAnnotation(): void
+    {
+        $class = ClassWithDependencyOfEnvironmentWithAnnotation::class;
+
+        $expected = new $class(new Environment(4));
+        $actual = $this->classInstantiator->instantiateClass($class);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testInstantiateWithWrongAnnotation(): void
+    {
+        $class = ClassWithDependencyOfEnvironmentWithWrongAnnotation::class;
+
+        $this->expectException(InstantiateParameterException::class);
+
+        $this->classInstantiator->instantiateClass($class);
+    }
+
+    public function testInstantiateWithUnknownClassInAnnotation(): void
+    {
+        $class = ClassWithDependencyOfEnvironmentWithUnknownAnnotation::class;
+
+        $this->expectException(InstantiatorAnnotationException::class);
+        $this->expectExceptionMessage('Invalid value for Annotation "Instantiator": ');
+
+        $this->classInstantiator->instantiateClass($class);
+    }
+
+    public function testInstantiateWithNotInstantiatorClassInAnnotation(): void
+    {
+        $class = ClassWithDependencyOfEnvironmentWithNotInstantiatorInAnnotation::class;
+
+        $this->expectException(InstantiatorAnnotationException::class);
+        $this->expectExceptionMessage('Invalid value for Annotation "Instantiator": Value in class HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithNotInstantiatorInAnnotation is not an instance of ClassInstantiator');
+
+        $this->classInstantiator->instantiateClass($class);
     }
 
 

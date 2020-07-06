@@ -32,11 +32,14 @@ class ClassInstantiatorFromReflection
         $this->wantedClass = $reflectionClass;
     }
 
-    public function instantiateClass($predefinedArguments): object
+    public function instantiateClass(array $predefinedArguments): object
     {
         $this->predefinedArguments = $predefinedArguments;
 
-        return $this->instantiateClassWithExtension() ?? $this->instantiateClassFromReflectionDynamically();
+        return
+            $this->instantiateClassWithExtension() ??
+            $this->instantiateClassWithAnnotation() ??
+            $this->instantiateClassWithBuildingArguments();
     }
 
     private function instantiateClassWithExtension(): ?object
@@ -44,7 +47,13 @@ class ClassInstantiatorFromReflection
         return $this->instantiateClassWithExtensionProperty() ?? $this->instantiateClassWithExtensionMethod();
     }
 
-    private function instantiateClassFromReflectionDynamically(): object
+    private function instantiateClassWithAnnotation(): ?object
+    {
+        $classInstantiator = new ClassInstantiatorFromAnnotation($this->classInstantiator, $this->wantedClass);
+        return $classInstantiator->instantiateClass($this->predefinedArguments);
+    }
+
+    private function instantiateClassWithBuildingArguments(): object
     {
         $argumentBuilder = new ArgumentsForConstructorBuilder($this->classInstantiator, $this->wantedClass);
         $argumentBuilder->setPredefinedArguments($this->predefinedArguments);
