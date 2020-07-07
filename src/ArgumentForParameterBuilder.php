@@ -49,7 +49,23 @@ class ArgumentForParameterBuilder
         if (!array_key_exists($parameter->getName(), $this->predefinedArguments)) {
             return null;
         }
-        return $this->predefinedArguments[$parameter->getName()];
+
+        $argument = $this->predefinedArguments[$parameter->getName()];
+        return $this->convertArgumentForParameter($argument, $parameter);
+    }
+
+    private function convertArgumentForParameter($argument, ReflectionParameter $parameter)
+    {
+        if ($this->isArgumentAStringButIntegerIsNeeded($argument, $parameter)) {
+            return (int)$argument;
+        }
+        return $argument;
+    }
+
+    private function isArgumentAStringButIntegerIsNeeded($argument, ReflectionParameter $parameter): bool
+    {
+        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
+        return is_string($argument) && is_numeric($argument) && $parameter->getType() && $parameter->getType()->getName();
     }
 
     private function instantiateParameter(ReflectionParameter $parameter): object

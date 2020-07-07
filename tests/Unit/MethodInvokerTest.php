@@ -133,6 +133,15 @@ class MethodInvokerTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testInvokeMethodWithStringForIntParameter(): void
+    {
+        $callable = [$this->classInstantiatorExtended, 'createIntegerObjectWithParameter'];
+
+        $expected = new ClassWithTwoIntegerParameters(5, 10);
+        $actual = $this->methodInvoker->invokeMethod($callable, ['value' => '10']);
+        $this->assertEquals($expected, $actual);
+    }
+
 
     /* HELPERS */
 
