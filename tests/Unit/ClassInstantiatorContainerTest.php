@@ -15,15 +15,13 @@ class ClassInstantiatorContainerTest extends TestCase
 {
     /** @var ClassInstantiatorContainer */
     private $container;
-    /** @var ClassInstantiator */
-    private $instantiator;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->instantiator = new ClassInstantiator();
-        $this->container = new ClassInstantiatorContainer($this->instantiator);
+        $instantiator = new ClassInstantiator();
+        $this->container = new ClassInstantiatorContainer($instantiator);
     }
 
 
