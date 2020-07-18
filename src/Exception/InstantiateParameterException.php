@@ -2,12 +2,13 @@
 
 namespace HJerichen\ClassInstantiator\Exception;
 
+use Psr\Container\ContainerExceptionInterface;
 use ReflectionParameter;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
  */
-class InstantiateParameterException extends ClassInstantiatorException
+class InstantiateParameterException extends ClassInstantiatorException implements ContainerExceptionInterface
 {
     /**
      * @var ReflectionParameter
