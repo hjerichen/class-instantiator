@@ -35,7 +35,7 @@ class InstantiateParameterExceptionTest extends TestCase
 
     public function testImplementsCorrectInterface(): void
     {
-        $this->assertInstanceOf(ClassInstantiatorException::class, $this->exception);
+        self::assertInstanceOf(ClassInstantiatorException::class, $this->exception);
     }
 
     public function testMessage(): void
@@ -44,7 +44,7 @@ class InstantiateParameterExceptionTest extends TestCase
 
         $expected = sprintf('Can\'t instantiate "int $value" for method "__construct" of class "%s"', $class);
         $actual = $this->exception->getMessage();
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
 

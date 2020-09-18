@@ -1,5 +1,4 @@
 <?php
-/** @noinspection PhpUnused */
 /** @noinspection UnusedConstructorDependenciesInspection */
 declare(strict_types=1);
 

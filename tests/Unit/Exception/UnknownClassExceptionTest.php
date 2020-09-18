@@ -36,7 +36,7 @@ class UnknownClassExceptionTest extends TestCase
     {
         $expected = 'Class "Test" not found.';
         $actual = $this->exception->getMessage();
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
 

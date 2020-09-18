@@ -29,35 +29,35 @@ class ClassInstantiatorContainerTest extends TestCase
 
     public function testClassImplementsCorrectInterface(): void
     {
-        $this->assertInstanceOf(ContainerInterface::class, $this->container);
+        self::assertInstanceOf(ContainerInterface::class, $this->container);
     }
 
     public function testHasForExistingClass(): void
     {
         $expected = true;
         $actual = $this->container->has(SimpleClass::class);
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testHasForNotExistingClass(): void
     {
         $expected = false;
         $actual = $this->container->has('SomeClassDoesNotExist');
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testGetForInstantiableClass(): void
     {
         $expected = new SimpleClass();
         $actual = $this->container->get(SimpleClass::class);
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testGetReturnsSameInstanceOnSecondCall(): void
     {
         $expected = $this->container->get(SimpleClass::class);
         $actual = $this->container->get(SimpleClass::class);
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testGetThrowsNotFoundExceptionForNotExistingClasses(): void

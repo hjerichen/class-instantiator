@@ -58,7 +58,7 @@ class MethodInvokerTest extends TestCase
 
         $expected = new ClassWithIntegerParameter($value1);
         $actual = $this->methodInvoker->invokeMethod($methodCallable, $arguments);
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testWithParameter(): void
@@ -69,7 +69,7 @@ class MethodInvokerTest extends TestCase
 
         $expected = new ClassWithTwoIntegerParameters($value1, $arguments['value']);
         $actual = $this->methodInvoker->invokeMethod($methodCallable, $arguments);
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testWithMissingParameter(): void
@@ -98,7 +98,7 @@ class MethodInvokerTest extends TestCase
 
         $expected = new ClassWithSimpleDependency($simpleClass);
         $actual = $this->methodInvoker->invokeMethod($methodCallable, $arguments);
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testWithClassInstantiatorThrowsException(): void
@@ -130,7 +130,7 @@ class MethodInvokerTest extends TestCase
 
         $actual = $methodInvoker->invokeMethod($callable);
         $expected = new Environment(4);
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testInvokeMethodWithStringForIntParameter(): void
@@ -139,7 +139,7 @@ class MethodInvokerTest extends TestCase
 
         $expected = new ClassWithTwoIntegerParameters(5, 10);
         $actual = $this->methodInvoker->invokeMethod($callable, ['value' => '10']);
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
 
