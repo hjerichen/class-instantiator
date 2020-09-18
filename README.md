@@ -127,3 +127,6 @@ use TheCodingMachine\GraphQLite\SchemaFactory;
 $container = new ClassInstantiatorContainer(new ClassInstantiator()); // You can also inject an extension.
 $factory = new SchemaFactory($cache, $container);
 ```
+
+##### License and authors
+This project is free and under the MIT Licence. Responsible for this project is Heiko Jerichen (heiko@jerichen.de).
