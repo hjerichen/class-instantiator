@@ -40,4 +40,9 @@ class ClassInstantiatorExtended extends ClassInstantiator
     {
         return new SomeInterfaceImplementation();
     }
+
+    public function createSome2(): SomeInterface2
+    {
+        return new SomeInterface2Implementation(2);
+    }
 }

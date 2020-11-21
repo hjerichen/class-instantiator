@@ -22,6 +22,8 @@ use HJerichen\ClassInstantiator\Test\Helpers\ClassWithTwoSimpleDependencies;
 use HJerichen\ClassInstantiator\Test\Helpers\Environment;
 use HJerichen\ClassInstantiator\Test\Helpers\SimpleClass;
 use HJerichen\ClassInstantiator\Test\Helpers\SomeInterface;
+use HJerichen\ClassInstantiator\Test\Helpers\SomeInterface2;
+use HJerichen\ClassInstantiator\Test\Helpers\SomeInterface2Implementation;
 use HJerichen\ClassInstantiator\Test\Helpers\SomeInterfaceImplementation;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
@@ -185,6 +187,15 @@ class ClassInstantiatorTest extends TestCase
         $class = ClassWithDependencyOfEnvironmentWithAnnotation::class;
 
         $expected = new $class(new Environment(4));
+        $actual = $this->classInstantiator->instantiateClass($class);
+        self::assertEquals($expected, $actual);
+    }
+
+    public function testInstantiateWithAnnotationOnInterface(): void
+    {
+        $class = SomeInterface2::class;
+
+        $expected = new SomeInterface2Implementation(2);
         $actual = $this->classInstantiator->instantiateClass($class);
         self::assertEquals($expected, $actual);
     }
