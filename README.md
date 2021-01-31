@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/hjerichen/class-instantiator.svg?branch=master)](https://travis-ci.org/hjerichen/class-instantiator)
+[![Continuous Integration](https://github.com/hjerichen/class-instantiator/workflows/Continuous%20Integration/badge.svg?branch=master)](https://github.com/hjerichen/class-instantiator/actions)
 [![Coverage Status](https://coveralls.io/repos/github/hjerichen/class-instantiator/badge.svg?branch=master&service=github)](https://coveralls.io/github/hjerichen/class-instantiator?branch=master)
 
 # Class Instantiator
