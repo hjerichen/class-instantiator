@@ -1,6 +1,8 @@
 /logs
 /vendor
 
+/composer.lock
+
 /.idea/*
 !/.idea/codeStyles/
 !/.idea/dictionaries/
