@@ -2,6 +2,7 @@
 
 namespace HJerichen\ClassInstantiator;
 
+use HJerichen\ClassInstantiator\ArgumentBuilder\ArgumentsForMethodBuilder;
 use ReflectionMethod;
 use Throwable;
 use TypeError;

@@ -1,34 +1,44 @@
 <?php declare(strict_types=1);
 
-namespace HJerichen\ClassInstantiator;
+namespace HJerichen\ClassInstantiator\FromReflection;
 
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
 use HJerichen\ClassInstantiator\Annotation\Instantiator;
+use HJerichen\ClassInstantiator\ClassInstantiator;
 use HJerichen\ClassInstantiator\Exception\InstantiatorAnnotationException;
 use ReflectionClass;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
  */
-class ClassInstantiatorFromAnnotation
+class ReflectionClassInstantiatorWithAnnotation implements ReflectionClassInstantiator
 {
+    /** @var ReflectionClassInstantiator */
+    private $reflectionClassInstantiator;
+
+    /** @var ReflectionClassInstantiatorBase */
+    private $instantiatorOfInstantiator;
+
     /** @var ReflectionClass */
     private $reflectionClass;
 
-    /** @var ClassInstantiator */
-    private $instantiatorOfInstantiator;
-
-    public function __construct(ClassInstantiator $instantiatorOfInstantiator, ReflectionClass $reflectionClass)
-    {
-        $this->reflectionClass = $reflectionClass;
+    public function __construct(
+        ClassInstantiator $instantiatorOfInstantiator,
+        ReflectionClassInstantiator $reflectionClassInstantiator
+    ) {
+        $this->reflectionClassInstantiator = $reflectionClassInstantiator;
         $this->instantiatorOfInstantiator = $instantiatorOfInstantiator;
     }
 
-    public function instantiateClass(array $predefinedArguments): ?object
+    public function instantiateClass(ReflectionClass $reflectionClass, array $predefinedArguments): ?object
     {
+        $this->reflectionClass = $reflectionClass;
+
         $instantiator = $this->getInstantiatorForReflectionClass();
-        if ($instantiator === null) return null;
+        if ($instantiator === null) {
+            return $this->reflectionClassInstantiator->instantiateClass($reflectionClass, $predefinedArguments);
+        }
 
         return $instantiator->instantiateClassFromReflection($this->reflectionClass, $predefinedArguments);
     }

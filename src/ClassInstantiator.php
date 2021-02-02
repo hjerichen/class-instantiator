@@ -2,7 +2,11 @@
 
 namespace HJerichen\ClassInstantiator;
 
+use HJerichen\ClassInstantiator\FromReflection\ReflectionClassInstantiator;
+use HJerichen\ClassInstantiator\FromReflection\ReflectionClassInstantiatorBase;
 use HJerichen\ClassInstantiator\Exception\UnknownClassException;
+use HJerichen\ClassInstantiator\FromReflection\ReflectionClassInstantiatorWithAnnotation;
+use HJerichen\ClassInstantiator\FromReflection\ReflectionClassInstantiatorWithExtension;
 use ReflectionClass;
 use ReflectionException;
 
@@ -23,7 +27,15 @@ class ClassInstantiator
 
     public function instantiateClassFromReflection(ReflectionClass $class, $predefinedArguments = []): object
     {
-        $classInstantiatorFromReflection = new ClassInstantiatorFromReflection($this, $class);
-        return $classInstantiatorFromReflection->instantiateClass($predefinedArguments);
+        $reflectionClassInstantiator = $this->createReflectionClassInstantiator();
+        return $reflectionClassInstantiator->instantiateClass($class, $predefinedArguments);
+    }
+
+    protected function createReflectionClassInstantiator(): ReflectionClassInstantiator
+    {
+        $classInstantiator = new ReflectionClassInstantiatorBase($this);
+        $classInstantiator = new ReflectionClassInstantiatorWithAnnotation($this, $classInstantiator);
+        $classInstantiator = new ReflectionClassInstantiatorWithExtension($this, $classInstantiator);
+        return $classInstantiator;
     }
 }
