@@ -1,7 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace HJerichen\ClassInstantiator;
+namespace HJerichen\ClassInstantiator\ArgumentBuilder;
 
+use HJerichen\ClassInstantiator\ClassInstantiator;
 use HJerichen\Collections\Reflection\ReflectionParameterCollection;
 use ReflectionClass;
 

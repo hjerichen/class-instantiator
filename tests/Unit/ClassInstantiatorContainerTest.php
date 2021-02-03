@@ -6,7 +6,7 @@ use HJerichen\ClassInstantiator\ClassInstantiator;
 use HJerichen\ClassInstantiator\ClassInstantiatorContainer;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithTwoIntegerParameters;
 use HJerichen\ClassInstantiator\Test\Helpers\SimpleClass;
-use PHPUnit\Framework\TestCase;
+use HJerichen\ClassInstantiator\Test\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;

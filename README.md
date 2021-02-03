@@ -63,10 +63,10 @@ class ClassA {
 }
 
 class MyInstantiator extends ClassInstantiator {
-    /* The class instantiator will match the property name to the constructor parameter name */
+    # The class instantiator will match the property name to the constructor parameter name
     private $id = 5;
     
-    /* The class instantiator will match the return type to the constructor parameter type */
+    # The class instantiator will match the return type to the constructor parameter type
     public function getDatabase(): PDO
     {
         return new PDO('dsn');
@@ -97,10 +97,10 @@ class ClassB {
 }
 
 class MyInstantiator extends ClassInstantiator {
-    /* The class instantiator will match the property name to the constructor parameter name */
+    # The class instantiator will match the property name to the constructor parameter name
     private $id = 5;
     
-    /* The class instantiator will match the return type to the constructor parameter type */
+    # The class instantiator will match the return type to the constructor parameter type 
     public function getDatabase(): PDO
     {
         return new PDO('dsn');
@@ -109,6 +109,31 @@ class MyInstantiator extends ClassInstantiator {
 
 $instantiator = new ClassInstantiator();
 $object = $instantiator->instantiateClass(ClassB::class);
+```
+
+##### Inject Objects
+
+It is possible to inject objects into the class instantiator.  
+Those objects will be returned when a matching class is requested.
+
+```php
+<?php
+
+use HJerichen\ClassInstantiator\ClassInstantiator;
+
+interface InterfaceA {}
+class ClassA implements InterfaceA {}
+
+$instantiator = new ClassInstantiator();
+
+# only using the object resolves to this object when exactly this class is requested
+$instantiator->injectObject(new ClassA());
+$object = $instantiator->instantiateClass(ClassA::class);
+
+# using the object and an interface as second parameter
+# resolves to this object when exactly this interface is requested
+$instantiator->injectObject(new ClassA(), InterfaceA::class);
+$object = $instantiator->instantiateClass(InterfaceA::class);
 ```
 
 ##### PSR-11 Container
@@ -124,7 +149,8 @@ use HJerichen\ClassInstantiator\ClassInstantiator;
 use HJerichen\ClassInstantiator\ClassInstantiatorContainer;
 use TheCodingMachine\GraphQLite\SchemaFactory;
 
-$container = new ClassInstantiatorContainer(new ClassInstantiator()); // You can also inject an extension.
+# you can also inject an extension.
+$container = new ClassInstantiatorContainer(new ClassInstantiator()); 
 $factory = new SchemaFactory($cache, $container);
 ```
 

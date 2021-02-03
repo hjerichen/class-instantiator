@@ -3,6 +3,7 @@
 namespace HJerichen\ClassInstantiator\Test\Unit;
 
 use HJerichen\ClassInstantiator\ClassInstantiator;
+use HJerichen\ClassInstantiator\Exception\ClassDoesNotMatchForInjectionException;
 use HJerichen\ClassInstantiator\Exception\InstantiateParameterException;
 use HJerichen\ClassInstantiator\Exception\InstantiatorAnnotationException;
 use HJerichen\ClassInstantiator\Exception\UnknownClassException;
@@ -25,7 +26,7 @@ use HJerichen\ClassInstantiator\Test\Helpers\SomeInterface;
 use HJerichen\ClassInstantiator\Test\Helpers\SomeInterface2;
 use HJerichen\ClassInstantiator\Test\Helpers\SomeInterface2Implementation;
 use HJerichen\ClassInstantiator\Test\Helpers\SomeInterfaceImplementation;
-use PHPUnit\Framework\TestCase;
+use HJerichen\ClassInstantiator\Test\TestCase;
 use ReflectionClass;
 
 /**
@@ -227,6 +228,47 @@ class ClassInstantiatorTest extends TestCase
         $this->expectExceptionMessage('Invalid value for Annotation "Instantiator": Value in class HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithNotInstantiatorInAnnotation is not an instance of ClassInstantiator');
 
         $this->classInstantiator->instantiateClass($class);
+    }
+
+    public function testInjectObject(): void
+    {
+        $object = new Environment(3);
+        $this->classInstantiator->injectObject($object);
+
+        $expected = $object;
+        $actual = $this->classInstantiator->instantiateClass(Environment::class);
+        self::assertSame($expected, $actual);
+    }
+
+    public function testInjectObjectForInterface(): void
+    {
+        $object = new SomeInterfaceImplementation();
+        $this->classInstantiator->injectObject($object, SomeInterface::class);
+
+        $expected = $object;
+        $actual = $this->classInstantiator->instantiateClass(SomeInterface::class);
+        self::assertSame($expected, $actual);
+    }
+
+    public function testObjectIsStoredOverMultipleInstances(): void
+    {
+        $object = new Environment(3);
+        $this->classInstantiator->injectObject($object);
+
+        $expected = $object;
+        $actual = $this->classInstantiatorExtended->instantiateClass(Environment::class);
+        self::assertSame($expected, $actual);
+    }
+
+    public function testInjectObjectWithWrongClass(): void
+    {
+        $object = new Environment(3);
+        $class = SomeInterface::class;
+
+        $exception = new ClassDoesNotMatchForInjectionException($object, $class);
+        $this->expectExceptionObject($exception);
+
+        $this->classInstantiator->injectObject($object, $class);
     }
 
 

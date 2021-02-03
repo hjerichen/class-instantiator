@@ -1,7 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace HJerichen\ClassInstantiator;
+namespace HJerichen\ClassInstantiator\ArgumentBuilder;
 
+use HJerichen\ClassInstantiator\ClassInstantiator;
 use HJerichen\ClassInstantiator\Exception\InstantiateParameterException;
 use HJerichen\Collections\Reflection\ReflectionParameterCollection;
 use ReflectionParameter;
@@ -44,6 +45,11 @@ class ArgumentForParameterBuilder
         return $this->getPredefinedArgumentForParameter($parameter) ?? $this->instantiateParameter($parameter);
     }
 
+    /**
+     * @param ReflectionParameter $parameter
+     * @return mixed|null
+     * @noinspection PhpMissingReturnTypeInspection
+     */
     private function getPredefinedArgumentForParameter(ReflectionParameter $parameter)
     {
         if (!array_key_exists($parameter->getName(), $this->predefinedArguments)) {
@@ -54,6 +60,12 @@ class ArgumentForParameterBuilder
         return $this->convertArgumentForParameter($argument, $parameter);
     }
 
+    /**
+     * @param $argument
+     * @param ReflectionParameter $parameter
+     * @return mixed
+     * @noinspection PhpMissingReturnTypeInspection
+     */
     private function convertArgumentForParameter($argument, ReflectionParameter $parameter)
     {
         if ($this->isArgumentAStringButIntegerIsNeeded($argument, $parameter)) {
