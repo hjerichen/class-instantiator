@@ -18,6 +18,7 @@ class ClassInstantiatorExtended extends ClassInstantiator
 
     public function __construct()
     {
+        parent::__construct();
         $this->environment = new Environment(4);
     }
 

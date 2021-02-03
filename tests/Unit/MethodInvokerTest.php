@@ -13,7 +13,7 @@ use HJerichen\ClassInstantiator\Test\Helpers\ClassWithSimpleDependency;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithTwoIntegerParameters;
 use HJerichen\ClassInstantiator\Test\Helpers\Environment;
 use HJerichen\ClassInstantiator\Test\Helpers\SimpleClass;
-use PHPUnit\Framework\TestCase;
+use HJerichen\ClassInstantiator\Test\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use TypeError;
 
