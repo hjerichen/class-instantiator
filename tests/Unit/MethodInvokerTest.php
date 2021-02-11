@@ -14,6 +14,7 @@ use HJerichen\ClassInstantiator\Test\Helpers\ClassWithTwoIntegerParameters;
 use HJerichen\ClassInstantiator\Test\Helpers\Environment;
 use HJerichen\ClassInstantiator\Test\Helpers\SimpleClass;
 use HJerichen\ClassInstantiator\Test\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use TypeError;
 
@@ -22,6 +23,8 @@ use TypeError;
  */
 class MethodInvokerTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var MethodInvoker
      */
