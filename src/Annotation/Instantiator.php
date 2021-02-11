@@ -14,4 +14,5 @@ class Instantiator
 {
     /** @Required */
     public string $class;
+    public bool $store = false;
 }

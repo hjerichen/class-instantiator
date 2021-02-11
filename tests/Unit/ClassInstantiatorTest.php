@@ -21,6 +21,7 @@ use HJerichen\ClassInstantiator\Test\Helpers\ClassWithSimpleDependency;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithTwoIntegerParameters;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithTwoSimpleDependencies;
 use HJerichen\ClassInstantiator\Test\Helpers\Environment;
+use HJerichen\ClassInstantiator\Test\Helpers\InterfaceToStore;
 use HJerichen\ClassInstantiator\Test\Helpers\SimpleClass;
 use HJerichen\ClassInstantiator\Test\Helpers\SomeInterface;
 use HJerichen\ClassInstantiator\Test\Helpers\SomeInterface2;
@@ -263,6 +264,20 @@ class ClassInstantiatorTest extends TestCase
         $this->expectExceptionObject($exception);
 
         $this->classInstantiator->injectObject($object, $class);
+    }
+
+    public function testStoreObjectWithAnnotation(): void
+    {
+        $object1 = $this->classInstantiator->instantiateClass(InterfaceToStore::class);
+        $object2 = $this->classInstantiator->instantiateClass(InterfaceToStore::class);
+        self::assertSame($object1, $object2);
+    }
+
+    public function testNotStoreObjectWithAnnotation(): void
+    {
+        $object1 = $this->classInstantiator->instantiateClass(SomeInterface2::class);
+        $object2 = $this->classInstantiator->instantiateClass(SomeInterface2::class);
+        self::assertNotSame($object1, $object2);
     }
 
 

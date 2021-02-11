@@ -42,4 +42,9 @@ class ClassInstantiatorExtended extends ClassInstantiator
     {
         return new SomeInterface2Implementation(2);
     }
+
+    public function createInterfaceToStore(): InterfaceToStore
+    {
+        return new InterfaceToStoreImplementation();
+    }
 }
