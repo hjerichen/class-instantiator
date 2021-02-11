@@ -7,17 +7,10 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
  */
 class ClassWithIntegerParameter
 {
-    /**
-     * @var int
-     */
-    private $value;
+    private int $value;
 
+    /** @noinspection UnusedConstructorDependenciesInspection */
     public function __construct(int $value)
-    {
-        $this->value = $value;
-    }
-
-    public function setValue(int $value): void
     {
         $this->value = $value;
     }

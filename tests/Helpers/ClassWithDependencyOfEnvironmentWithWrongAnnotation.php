@@ -12,16 +12,11 @@ use HJerichen\ClassInstantiator\ClassInstantiator;
  */
 class ClassWithDependencyOfEnvironmentWithWrongAnnotation
 {
-    /** @var Environment */
-    private $environment;
+    private Environment $environment;
 
+    /** @noinspection UnusedConstructorDependenciesInspection */
     public function __construct(Environment $environment)
     {
         $this->environment = $environment;
-    }
-
-    public function getEnvironment(): Environment
-    {
-        return $this->environment;
     }
 }

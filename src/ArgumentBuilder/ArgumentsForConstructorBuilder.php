@@ -11,14 +11,8 @@ use ReflectionClass;
  */
 class ArgumentsForConstructorBuilder
 {
-    /**
-     * @var ArgumentForParameterBuilder
-     */
-    private $argumentForParameterBuilder;
-    /**
-     * @var ReflectionClass
-     */
-    private $reflectionClass;
+    private ArgumentForParameterBuilder $argumentForParameterBuilder;
+    private ReflectionClass $reflectionClass;
 
     public function __construct(ClassInstantiator $classInstantiator, ReflectionClass $reflectionClass)
     {

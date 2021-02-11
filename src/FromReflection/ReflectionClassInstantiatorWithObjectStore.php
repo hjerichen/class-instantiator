@@ -7,11 +7,8 @@ use ReflectionClass;
 
 class ReflectionClassInstantiatorWithObjectStore implements ReflectionClassInstantiator
 {
-    /** @var ReflectionClassInstantiator */
-    private $reflectionClassInstantiator;
-
-    /** @var ObjectStore */
-    private $objectStore;
+    private ReflectionClassInstantiator $reflectionClassInstantiator;
+    private ObjectStore $objectStore;
 
     public function __construct(ReflectionClassInstantiator $reflectionClassInstantiator, ObjectStore $objectStore)
     {

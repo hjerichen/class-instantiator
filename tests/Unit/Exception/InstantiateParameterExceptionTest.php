@@ -13,14 +13,8 @@ use ReflectionClass;
  */
 class InstantiateParameterExceptionTest extends TestCase
 {
-    /**
-     * @var InstantiateParameterException
-     */
-    private $exception;
+    private InstantiateParameterException $exception;
 
-    /**
-     *
-     */
     protected function setUp(): void
     {
         parent::setUp();

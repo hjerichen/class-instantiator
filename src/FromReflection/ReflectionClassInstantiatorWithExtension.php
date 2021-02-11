@@ -15,17 +15,10 @@ use ReflectionProperty;
  */
 class ReflectionClassInstantiatorWithExtension implements ReflectionClassInstantiator
 {
-    /** @var ClassInstantiator */
-    private $classInstantiator;
-
-    /** @var ReflectionClassInstantiator */
-    private $reflectionClassInstantiator;
-
-    /** @var array */
-    private $predefinedArguments;
-
-    /** @var ReflectionClass */
-    private $class;
+    private ReflectionClassInstantiator $reflectionClassInstantiator;
+    private ClassInstantiator $classInstantiator;
+    private ReflectionClass $class;
+    private array $predefinedArguments;
 
     public function __construct(ClassInstantiator $classInstantiatorSimple, ReflectionClassInstantiator $classInstantiator)
     {

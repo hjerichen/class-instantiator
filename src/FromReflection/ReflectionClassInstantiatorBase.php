@@ -11,8 +11,7 @@ use ReflectionClass;
  */
 class ReflectionClassInstantiatorBase implements ReflectionClassInstantiator
 {
-    /** @var ClassInstantiator  */
-    private $classInstantiator;
+    private ClassInstantiator $classInstantiator;
 
     public function __construct(ClassInstantiator $classInstantiator)
     {

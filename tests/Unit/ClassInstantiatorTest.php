@@ -34,14 +34,8 @@ use ReflectionClass;
  */
 class ClassInstantiatorTest extends TestCase
 {
-    /**
-     * @var ClassInstantiator
-     */
-    private $classInstantiator;
-    /**
-     * @var ClassInstantiatorExtended
-     */
-    private $classInstantiatorExtended;
+    private ClassInstantiator $classInstantiator;
+    private ClassInstantiatorExtended $classInstantiatorExtended;
 
     /**
      *

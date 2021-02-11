@@ -6,11 +6,9 @@ use Psr\Container\ContainerInterface;
 
 class ClassInstantiatorContainer implements ContainerInterface
 {
-    /** @var ClassInstantiator */
-    private $classInstantiator;
-
+    private ClassInstantiator $classInstantiator;
     /** @var object[] */
-    private $entries = [];
+    private array $entries = [];
 
     public function __construct(ClassInstantiator $classInstantiator)
     {
@@ -22,7 +20,7 @@ class ClassInstantiatorContainer implements ContainerInterface
         return class_exists($id);
     }
 
-    public function get($id)
+    public function get($id): object
     {
         $this->loadEntry($id);
         return $this->entries[$id];

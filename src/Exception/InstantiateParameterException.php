@@ -10,10 +10,7 @@ use ReflectionParameter;
  */
 class InstantiateParameterException extends ClassInstantiatorException implements ContainerExceptionInterface
 {
-    /**
-     * @var ReflectionParameter
-     */
-    private $reflectionParameter;
+    private ReflectionParameter $reflectionParameter;
 
     public function __construct(ReflectionParameter $reflectionParameter)
     {
@@ -25,6 +22,7 @@ class InstantiateParameterException extends ClassInstantiatorException implement
 
     private function createMessage(): string
     {
+        /** @noinspection NullPointerExceptionInspection */
         $className = $this->reflectionParameter->getDeclaringClass()->getName();
         $methodName = $this->reflectionParameter->getDeclaringFunction()->getName();
         $parameterName = $this->reflectionParameter->getName();

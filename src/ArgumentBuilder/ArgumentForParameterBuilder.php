@@ -12,14 +12,8 @@ use ReflectionParameter;
  */
 class ArgumentForParameterBuilder
 {
-    /**
-     * @var ClassInstantiator
-     */
-    private $classInstantiator;
-    /**
-     * @var array
-     */
-    private $predefinedArguments;
+    private ClassInstantiator $classInstantiator;
+    private array $predefinedArguments = [];
 
     public function __construct(ClassInstantiator $classInstantiator)
     {

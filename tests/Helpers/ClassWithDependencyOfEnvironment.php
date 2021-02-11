@@ -7,10 +7,7 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
  */
 class ClassWithDependencyOfEnvironment
 {
-    /**
-     * @var Environment
-     */
-    private $environment;
+    private Environment $environment;
 
     /** @noinspection UnusedConstructorDependenciesInspection */
     public function __construct(Environment $environment)

@@ -7,14 +7,8 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
  */
 class ClassWithTwoIntegerParameters
 {
-    /**
-     * @var int
-     */
-    private $value1;
-    /**
-     * @var int
-     */
-    private $value2;
+    private int $value1;
+    private int $value2;
 
     /** @noinspection UnusedConstructorDependenciesInspection */
     public function __construct(int $value1, int $value2)

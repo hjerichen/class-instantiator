@@ -7,14 +7,8 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
  */
 class ClassWithTwoSimpleDependencies
 {
-    /**
-     * @var SimpleClass
-     */
-    private $simpleClass;
-    /**
-     * @var ClassWithSimpleDependency
-     */
-    private $classWithDependency;
+    private SimpleClass $simpleClass;
+    private ClassWithSimpleDependency $classWithDependency;
 
     /** @noinspection UnusedConstructorDependenciesInspection */
     public function __construct(SimpleClass $simpleClass, ClassWithSimpleDependency $classWithDependency)

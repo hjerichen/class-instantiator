@@ -13,8 +13,7 @@ use HJerichen\ClassInstantiator\Test\Helpers\ClassInstantiatorExtended;
  */
 class ClassWithDependencyOfEnvironmentWithAnnotation
 {
-    /** @var Environment */
-    private $environment;
+    private Environment $environment;
 
     public function __construct(Environment $environment)
     {

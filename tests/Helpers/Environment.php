@@ -7,10 +7,7 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
  */
 class Environment
 {
-    /**
-     * @var int
-     */
-    private $value;
+    private int $value;
 
     /** @noinspection UnusedConstructorDependenciesInspection */
     public function __construct(int $value)

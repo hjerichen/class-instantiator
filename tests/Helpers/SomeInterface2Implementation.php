@@ -7,9 +7,9 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
  */
 class SomeInterface2Implementation implements SomeInterface2
 {
-    /** @var int */
-    private $id;
+    private int $id;
 
+    /** @noinspection UnusedConstructorDependenciesInspection */
     public function __construct(int $id)
     {
         $this->id = $id;

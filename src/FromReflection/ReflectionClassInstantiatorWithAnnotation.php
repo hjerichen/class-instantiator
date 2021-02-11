@@ -14,14 +14,9 @@ use ReflectionClass;
  */
 class ReflectionClassInstantiatorWithAnnotation implements ReflectionClassInstantiator
 {
-    /** @var ReflectionClassInstantiator */
-    private $reflectionClassInstantiator;
-
-    /** @var ReflectionClassInstantiatorBase */
-    private $instantiatorOfInstantiator;
-
-    /** @var ReflectionClass */
-    private $reflectionClass;
+    private ReflectionClassInstantiator $reflectionClassInstantiator;
+    private ClassInstantiator $instantiatorOfInstantiator;
+    private ReflectionClass $reflectionClass;
 
     public function __construct(
         ClassInstantiator $instantiatorOfInstantiator,

@@ -12,9 +12,6 @@ use Doctrine\Common\Annotations\Annotation\Target;
  */
 class Instantiator
 {
-    /**
-     * @var string
-     * @Required
-     */
-    public $class;
+    /** @Required */
+    public string $class;
 }

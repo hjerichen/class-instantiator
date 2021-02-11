@@ -7,22 +7,10 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
  */
 class ClassWithMixedParameters
 {
-    /**
-     * @var int
-     */
-    private $integer;
-    /**
-     * @var string
-     */
-    private $string;
-    /**
-     * @var array
-     */
-    private $array;
-    /**
-     * @var SimpleClass
-     */
-    private $object;
+    private int $integer;
+    private string $string;
+    private array $array;
+    private SimpleClass $object;
 
     /** @noinspection UnusedConstructorDependenciesInspection */
     public function __construct(int $integer, string $string, array $array, SimpleClass $object)

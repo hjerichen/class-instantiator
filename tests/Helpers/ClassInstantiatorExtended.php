@@ -1,6 +1,4 @@
-<?php
-/** @noinspection UnusedConstructorDependenciesInspection */
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace HJerichen\ClassInstantiator\Test\Helpers;
 
@@ -11,11 +9,9 @@ use HJerichen\ClassInstantiator\ClassInstantiator;
  */
 class ClassInstantiatorExtended extends ClassInstantiator
 {
-    /**
-     * @var Environment
-     */
-    private $environment;
+    private Environment $environment;
 
+    /** @noinspection UnusedConstructorDependenciesInspection */
     public function __construct()
     {
         parent::__construct();

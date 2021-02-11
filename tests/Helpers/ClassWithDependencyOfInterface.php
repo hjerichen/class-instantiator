@@ -7,10 +7,7 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
  */
 class ClassWithDependencyOfInterface
 {
-    /**
-     * @var SomeInterface
-     */
-    private $someInterface;
+    private SomeInterface $someInterface;
 
     /** @noinspection UnusedConstructorDependenciesInspection */
     public function __construct(SomeInterface $someInterface)

@@ -12,13 +12,8 @@ use TypeError;
  */
 class MethodInvoker
 {
-    /**
-     * @var ClassInstantiator
-     */
-    private $classInstantiator;
-    /**
-     * @var callable
-     */
+    private ClassInstantiator $classInstantiator;
+    /** @var callable */
     private $methodCallable;
 
     public function __construct(ClassInstantiator $classInstantiator)

@@ -16,8 +16,7 @@ use ReflectionException;
  */
 class ClassInstantiator
 {
-    /** @var ObjectStore */
-    private $objectStore;
+    private ObjectStore $objectStore;
 
     public function __construct()
     {

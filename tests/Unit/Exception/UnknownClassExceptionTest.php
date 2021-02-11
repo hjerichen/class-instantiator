@@ -10,14 +10,8 @@ use PHPUnit\Framework\TestCase;
  */
 class UnknownClassExceptionTest extends TestCase
 {
-    /**
-     * @var UnknownClassException
-     */
-    private $exception;
-    /**
-     * @var string
-     */
-    private $class = 'Test';
+    private UnknownClassException $exception;
+    private string $class = 'Test';
 
     /**
      *

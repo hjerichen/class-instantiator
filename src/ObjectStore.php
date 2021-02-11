@@ -7,7 +7,7 @@ use HJerichen\ClassInstantiator\Exception\ClassDoesNotMatchForInjectionException
 class ObjectStore
 {
     /** @var array<string,object> */
-    private static $objects = [];
+    private static array $objects = [];
 
     public function storeObject(object $object, ?string $class = null): void
     {

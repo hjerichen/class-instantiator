@@ -13,8 +13,7 @@ use Psr\Container\NotFoundExceptionInterface;
 
 class ClassInstantiatorContainerTest extends TestCase
 {
-    /** @var ClassInstantiatorContainer */
-    private $container;
+    private ClassInstantiatorContainer $container;
 
     protected function setUp(): void
     {

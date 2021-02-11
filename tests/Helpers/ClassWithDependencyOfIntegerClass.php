@@ -7,14 +7,8 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
  */
 class ClassWithDependencyOfIntegerClass
 {
-    /**
-     * @var int
-     */
-    private $integer;
-    /**
-     * @var ClassWithIntegerParameter
-     */
-    private $object;
+    private int $integer;
+    private ClassWithIntegerParameter $object;
 
     /** @noinspection UnusedConstructorDependenciesInspection */
     public function __construct(int $integer, ClassWithIntegerParameter $object)
