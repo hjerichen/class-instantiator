@@ -111,6 +111,24 @@ $instantiator = new ClassInstantiator();
 $object = $instantiator->instantiateClass(ClassB::class);
 ```
 
+##### Storing Objects
+
+It is possible to sore objects permanently with an annotation.  
+Those objects will then be returned when a matching class is requested instead of creating a new one every time.  
+
+```php
+<?php
+
+use HJerichen\ClassInstantiator\Annotation\Instantiator;
+
+/**
+ * @Instantiator(class=MyInstantiator::class, store=true)
+ */
+class ClassA {
+    public function __construct(PDO $database, int $id) {}
+}
+```
+
 ##### Inject Objects
 
 It is possible to inject objects into the class instantiator.  
