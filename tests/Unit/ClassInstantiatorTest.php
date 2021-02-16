@@ -7,6 +7,8 @@ use HJerichen\ClassInstantiator\Exception\ClassDoesNotMatchForInjectionException
 use HJerichen\ClassInstantiator\Exception\InstantiateParameterException;
 use HJerichen\ClassInstantiator\Exception\InstantiatorAnnotationException;
 use HJerichen\ClassInstantiator\Exception\UnknownClassException;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassForExtensionHasHigherPriorityThenAnnotation;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassForExtensionHasHigherPriorityThenAnnotation2;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassInstantiatorExtended;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironment;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAnnotation;
@@ -269,22 +271,41 @@ class ClassInstantiatorTest extends TestCase
 
     public function testStoreObjectWithAnnotation(): void
     {
-        $object1 = $this->classInstantiator->instantiateClass(InterfaceToStore::class);
-        $object2 = $this->classInstantiator->instantiateClass(InterfaceToStore::class);
+        $class = InterfaceToStore::class;
+        $object1 = $this->classInstantiator->instantiateClass($class);
+        $object2 = $this->classInstantiator->instantiateClass($class);
         self::assertSame($object1, $object2);
     }
 
     public function testNotStoreObjectWithAnnotation(): void
     {
-        $object1 = $this->classInstantiator->instantiateClass(SomeInterface2::class);
-        $object2 = $this->classInstantiator->instantiateClass(SomeInterface2::class);
+        $class = SomeInterface2::class;
+        $object1 = $this->classInstantiator->instantiateClass($class);
+        $object2 = $this->classInstantiator->instantiateClass($class);
         self::assertNotSame($object1, $object2);
     }
 
     public function testAnnotationWithOnlyStore(): void
     {
-        $object1 = $this->classInstantiator->instantiateClass(ClassWithOnlyStore::class);
-        $object2 = $this->classInstantiator->instantiateClass(ClassWithOnlyStore::class);
+        $class = ClassWithOnlyStore::class;
+        $object1 = $this->classInstantiator->instantiateClass($class);
+        $object2 = $this->classInstantiator->instantiateClass($class);
+        self::assertSame($object1, $object2);
+    }
+
+    public function testExtensionHasHigherPriorityThenAnnotation(): void
+    {
+        $class = ClassForExtensionHasHigherPriorityThenAnnotation::class;
+        $object1 = $this->classInstantiatorExtended->instantiateClass($class);
+        $object2 = $this->classInstantiatorExtended->instantiateClass($class);
+        self::assertNotSame($object1, $object2);
+    }
+
+    public function testExtensionHasHigherPriorityThenAnnotationWithUseStore(): void
+    {
+        $class = ClassForExtensionHasHigherPriorityThenAnnotation2::class;
+        $object1 = $this->classInstantiatorExtended->instantiateClass($class);
+        $object2 = $this->classInstantiatorExtended->instantiateClass($class);
         self::assertSame($object1, $object2);
     }
 

@@ -47,4 +47,16 @@ class ClassInstantiatorExtended extends ClassInstantiator
     {
         return new InterfaceToStoreImplementation();
     }
+
+    public function createForExtensionHasHigherPriority(): ClassForExtensionHasHigherPriorityThenAnnotation
+    {
+        return new ClassForExtensionHasHigherPriorityThenAnnotation();
+    }
+
+    public function createForExtensionHasHigherPriorityWithStore(): ClassForExtensionHasHigherPriorityThenAnnotation2
+    {
+        $object = new ClassForExtensionHasHigherPriorityThenAnnotation2();
+        $this->injectObject($object);
+        return $object;
+    }
 }
