@@ -47,8 +47,8 @@ class ClassInstantiator
     protected function createReflectionClassInstantiator(): ReflectionClassInstantiator
     {
         $classInstantiator = new ReflectionClassInstantiatorBase($this);
-        $classInstantiator = new ReflectionClassInstantiatorWithAnnotation($this, $classInstantiator);
-        $classInstantiator = new ReflectionClassInstantiatorWithExtension($this, $classInstantiator);
+        $classInstantiator = new ReflectionClassInstantiatorWithAnnotation($classInstantiator, $this, $this->objectStore);
+        $classInstantiator = new ReflectionClassInstantiatorWithExtension($classInstantiator, $this);
         $classInstantiator = new ReflectionClassInstantiatorWithObjectStore($classInstantiator, $this->objectStore);
         return $classInstantiator;
     }

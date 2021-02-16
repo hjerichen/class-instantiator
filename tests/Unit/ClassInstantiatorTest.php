@@ -17,6 +17,7 @@ use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfIntegerClass;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfInterface;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithIntegerParameter;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithMixedParameters;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassWithOnlyStore;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithSimpleDependency;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithTwoIntegerParameters;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithTwoSimpleDependencies;
@@ -278,6 +279,13 @@ class ClassInstantiatorTest extends TestCase
         $object1 = $this->classInstantiator->instantiateClass(SomeInterface2::class);
         $object2 = $this->classInstantiator->instantiateClass(SomeInterface2::class);
         self::assertNotSame($object1, $object2);
+    }
+
+    public function testAnnotationWithOnlyStore(): void
+    {
+        $object1 = $this->classInstantiator->instantiateClass(ClassWithOnlyStore::class);
+        $object2 = $this->classInstantiator->instantiateClass(ClassWithOnlyStore::class);
+        self::assertSame($object1, $object2);
     }
 
 

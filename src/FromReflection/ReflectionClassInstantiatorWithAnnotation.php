@@ -7,6 +7,7 @@ use Doctrine\Common\Annotations\AnnotationReader;
 use HJerichen\ClassInstantiator\Annotation\Instantiator as InstantiatorAnnotation;
 use HJerichen\ClassInstantiator\ClassInstantiator;
 use HJerichen\ClassInstantiator\Exception\InstantiatorAnnotationException;
+use HJerichen\ClassInstantiator\ObjectStore;
 use ReflectionClass;
 
 /**
@@ -16,17 +17,20 @@ class ReflectionClassInstantiatorWithAnnotation implements ReflectionClassInstan
 {
     private ReflectionClassInstantiator $reflectionClassInstantiator;
     private ClassInstantiator $instantiatorOfInstantiator;
+    private ObjectStore $objectStore;
 
     private ?InstantiatorAnnotation $annotation;
     private ClassInstantiator $instantiator;
     private ReflectionClass $class;
 
     public function __construct(
+        ReflectionClassInstantiator $reflectionClassInstantiator,
         ClassInstantiator $instantiatorOfInstantiator,
-        ReflectionClassInstantiator $reflectionClassInstantiator
+        ObjectStore $objectStore
     ) {
         $this->reflectionClassInstantiator = $reflectionClassInstantiator;
         $this->instantiatorOfInstantiator = $instantiatorOfInstantiator;
+        $this->objectStore = $objectStore;
     }
 
     public function instantiateClass(ReflectionClass $reflectionClass, array $predefinedArguments): ?object
@@ -36,7 +40,10 @@ class ReflectionClassInstantiatorWithAnnotation implements ReflectionClassInstan
         try {
             $this->loadAnnotation();
             $this->loadInstantiatorFromAnnotation();
-            return $this->instantiateWith($predefinedArguments);
+
+            $object = $this->instantiateWith($predefinedArguments);
+            $this->storeObject($object);
+            return $object;
         } finally {
             $this->cleanup();
         }
@@ -58,6 +65,7 @@ class ReflectionClassInstantiatorWithAnnotation implements ReflectionClassInstan
     private function loadInstantiatorFromAnnotation(): void
     {
         if (!isset($this->annotation)) return;
+        if (!isset($this->annotation->class)) return;
         if ($this->annotation->class === get_class($this->instantiatorOfInstantiator)) return;
 
         $instantiator = $this->instantiatorOfInstantiator->instantiateClass($this->annotation->class);
@@ -69,15 +77,19 @@ class ReflectionClassInstantiatorWithAnnotation implements ReflectionClassInstan
 
     private function instantiateWith(array $predefinedArguments): ?object
     {
-        if (!isset($this->instantiator)) {
-            return $this->reflectionClassInstantiator->instantiateClass($this->class, $predefinedArguments);
+        if (isset($this->instantiator)) {
+           return $this->instantiator->instantiateClassFromReflection($this->class, $predefinedArguments);
         }
+        return $this->reflectionClassInstantiator->instantiateClass($this->class, $predefinedArguments);
+    }
 
-        $object = $this->instantiator->instantiateClassFromReflection($this->class, $predefinedArguments);
-        if ($this->annotation->store) {
-            $this->instantiator->injectObject($object, $this->class->getName());
-        }
-        return $object;
+    private function storeObject(?object $object): void
+    {
+        if ($object === null) return;
+        if (!isset($this->annotation)) return;
+        if ($this->annotation->store === false) return;
+
+        $this->objectStore->storeObject($object, $this->class->getName());
     }
 
     private function cleanup(): void

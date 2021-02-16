@@ -20,8 +20,10 @@ class ReflectionClassInstantiatorWithExtension implements ReflectionClassInstant
     private ReflectionClass $class;
     private array $predefinedArguments;
 
-    public function __construct(ClassInstantiator $classInstantiatorSimple, ReflectionClassInstantiator $classInstantiator)
-    {
+    public function __construct(
+        ReflectionClassInstantiator $classInstantiator,
+        ClassInstantiator $classInstantiatorSimple
+    ) {
         $this->classInstantiator = $classInstantiatorSimple;
         $this->reflectionClassInstantiator = $classInstantiator;
     }
