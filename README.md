@@ -111,6 +111,9 @@ $instantiator = new ClassInstantiator();
 $object = $instantiator->instantiateClass(ClassB::class);
 ```
 
+Instantiate classes with an extension has a higher priority then using an annotation.  
+This allows overwriting the annotation und instantiate classes depending on your current needs.  
+
 ##### Storing Objects
 
 It is possible to sore objects permanently with an annotation.  
@@ -128,6 +131,10 @@ class ClassA {
     public function __construct(PDO $database, int $id) {}
 }
 ```
+
+Storing objects with annotation does not work when the instantiation is done in the extension.  
+This is because of the higher priority for extensions.  
+But you can store objects as well when using the method "injectObject" inside the creation method of the extension.
 
 ##### Inject Objects
 
