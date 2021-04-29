@@ -12,6 +12,11 @@ use HJerichen\ClassInstantiator\Test\Helpers\ClassForExtensionHasHigherPriorityT
 use HJerichen\ClassInstantiator\Test\Helpers\ClassInstantiatorExtended;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironment;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAnnotation;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAttribute;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAttributeNotClass;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAttributeStored;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAttributeWrongClass;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAttributeWrongValue;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithNotInstantiatorInAnnotation;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithUnknownAnnotation;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithWrongAnnotation;
@@ -228,6 +233,81 @@ class ClassInstantiatorTest extends TestCase
         $this->classInstantiator->instantiateClass($class);
     }
 
+    public function testInstantiateWithAttribute(): void
+    {
+        if (!$this->attributesAreSupported()) {
+            self::markTestSkipped('Needs php 8');
+        }
+        $class = ClassWithDependencyOfEnvironmentWithAttribute::class;
+
+        $expected = new $class(new Environment(4));
+        $actual = $this->classInstantiator->instantiateClass($class);
+        self::assertEquals($expected, $actual);
+    }
+
+    public function testInstantiateWithAttributeNotStored(): void
+    {
+        if (!$this->attributesAreSupported()) {
+            self::markTestSkipped('Needs php 8');
+        }
+        $class = ClassWithDependencyOfEnvironmentWithAttribute::class;
+
+        $instance1 = $this->classInstantiator->instantiateClass($class);
+        $instance2 = $this->classInstantiator->instantiateClass($class);
+        self::assertNotSame($instance1, $instance2);
+    }
+
+    public function testInstantiateWithAttributeStored(): void
+    {
+        if (!$this->attributesAreSupported()) {
+            self::markTestSkipped('Needs php 8');
+        }
+        $class = ClassWithDependencyOfEnvironmentWithAttributeStored::class;
+
+        $instance1 = $this->classInstantiator->instantiateClass($class);
+        $instance2 = $this->classInstantiator->instantiateClass($class);
+        self::assertSame($instance1, $instance2);
+    }
+
+    public function testInstantiateWithAttributeHasWrongClass(): void
+    {
+        if (!$this->attributesAreSupported()) {
+            self::markTestSkipped('Needs php 8');
+        }
+        $class = ClassWithDependencyOfEnvironmentWithAttributeWrongClass::class;
+
+        $this->expectException(InstantiatorAnnotationException::class);
+        $this->expectExceptionMessage('Invalid value for Attribute "Instantiator": Value in class HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAttributeWrongClass is not an instance of ClassInstantiator');
+
+        $this->classInstantiator->instantiateClass($class);
+    }
+
+    public function testInstantiateWithAttributeHasNotClass(): void
+    {
+        if (!$this->attributesAreSupported()) {
+            self::markTestSkipped('Needs php 8');
+        }
+        $class = ClassWithDependencyOfEnvironmentWithAttributeNotClass::class;
+
+        $this->expectException(UnknownClassException::class);
+        $this->expectExceptionMessage('Class "test" not found.');
+
+        $this->classInstantiator->instantiateClass($class);
+    }
+
+    public function testInstantiateWithAttributeHasWrongValue(): void
+    {
+        if (!$this->attributesAreSupported()) {
+            self::markTestSkipped('Needs php 8');
+        }
+        $class = ClassWithDependencyOfEnvironmentWithAttributeWrongValue::class;
+
+        $this->expectException(InstantiatorAnnotationException::class);
+        $this->expectExceptionMessage('Invalid value for Attribute "Instantiator"');
+
+        $this->classInstantiator->instantiateClass($class);
+    }
+
     public function testInjectObject(): void
     {
         $object = new Environment(3);
@@ -309,6 +389,11 @@ class ClassInstantiatorTest extends TestCase
         self::assertSame($object1, $object2);
     }
 
-
     /* HELPERS */
+
+    private function attributesAreSupported(): bool
+    {
+        $phpversion = (int)PHP_VERSION;
+        return $phpversion >= 8;
+    }
 }

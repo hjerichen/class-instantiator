@@ -1,4 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+/**
+ * @noinspection PhpPropertyOnlyWrittenInspection
+ * @noinspection UnknownInspectionInspection
+ * @noinspection PhpUnused
+ */
+declare(strict_types=1);
 
 namespace HJerichen\ClassInstantiator\Test\Helpers;
 

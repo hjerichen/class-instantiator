@@ -6,6 +6,7 @@ use HJerichen\ClassInstantiator\FromReflection\ReflectionClassInstantiator;
 use HJerichen\ClassInstantiator\FromReflection\ReflectionClassInstantiatorBase;
 use HJerichen\ClassInstantiator\Exception\UnknownClassException;
 use HJerichen\ClassInstantiator\FromReflection\ReflectionClassInstantiatorWithAnnotation;
+use HJerichen\ClassInstantiator\FromReflection\ReflectionClassInstantiatorWithAttribute;
 use HJerichen\ClassInstantiator\FromReflection\ReflectionClassInstantiatorWithExtension;
 use HJerichen\ClassInstantiator\FromReflection\ReflectionClassInstantiatorWithObjectStore;
 use ReflectionClass;
@@ -47,9 +48,18 @@ class ClassInstantiator
     protected function createReflectionClassInstantiator(): ReflectionClassInstantiator
     {
         $classInstantiator = new ReflectionClassInstantiatorBase($this);
+        if ($this->attributesAreSupported()) {
+            $classInstantiator = new ReflectionClassInstantiatorWithAttribute($classInstantiator, $this, $this->objectStore);
+        }
         $classInstantiator = new ReflectionClassInstantiatorWithAnnotation($classInstantiator, $this, $this->objectStore);
         $classInstantiator = new ReflectionClassInstantiatorWithExtension($classInstantiator, $this);
         $classInstantiator = new ReflectionClassInstantiatorWithObjectStore($classInstantiator, $this->objectStore);
         return $classInstantiator;
+    }
+
+    private function attributesAreSupported(): bool
+    {
+        $phpversion = (int)PHP_VERSION;
+        return $phpversion >= 8;
     }
 }

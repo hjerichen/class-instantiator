@@ -11,7 +11,7 @@ class UnknownClassException extends ClassInstantiatorException implements NotFou
 {
     public function __construct(string $class)
     {
-        $message = "Class \"{$class}\" not found.";
+        $message = "Class \"$class\" not found.";
         parent::__construct($message);
     }
 }
