@@ -1,9 +1,6 @@
 <?php
-/**
- * @noinspection PhpPropertyOnlyWrittenInspection
- * @noinspection UnknownInspectionInspection
- * @noinspection PhpUnused
- */
+/** @noinspection PhpPropertyOnlyWrittenInspection */
+/** @noinspection PhpUnused */
 declare(strict_types=1);
 
 namespace HJerichen\ClassInstantiator\Test\Helpers;
@@ -54,14 +51,14 @@ class ClassInstantiatorExtended extends ClassInstantiator
         return new InterfaceToStoreImplementation();
     }
 
-    public function createForExtensionHasHigherPriority(): ClassForExtensionHasHigherPriorityThenAnnotation
+    public function createForExtensionHasHigherPriority(): ClassForExtensionHasHigherPriorityThenAttribute
     {
-        return new ClassForExtensionHasHigherPriorityThenAnnotation();
+        return new ClassForExtensionHasHigherPriorityThenAttribute();
     }
 
-    public function createForExtensionHasHigherPriorityWithStore(): ClassForExtensionHasHigherPriorityThenAnnotation2
+    public function createForExtensionHasHigherPriorityWithStore(): ClassForExtensionHasHigherPriorityThenAttribute2
     {
-        $object = new ClassForExtensionHasHigherPriorityThenAnnotation2();
+        $object = new ClassForExtensionHasHigherPriorityThenAttribute2();
         $this->injectObject($object);
         return $object;
     }

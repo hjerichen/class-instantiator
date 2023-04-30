@@ -5,21 +5,17 @@ namespace HJerichen\ClassInstantiator\Test\Unit;
 use HJerichen\ClassInstantiator\ClassInstantiator;
 use HJerichen\ClassInstantiator\Exception\ClassDoesNotMatchForInjectionException;
 use HJerichen\ClassInstantiator\Exception\InstantiateParameterException;
-use HJerichen\ClassInstantiator\Exception\InstantiatorAnnotationException;
+use HJerichen\ClassInstantiator\Exception\InstantiatorAttributeException;
 use HJerichen\ClassInstantiator\Exception\UnknownClassException;
-use HJerichen\ClassInstantiator\Test\Helpers\ClassForExtensionHasHigherPriorityThenAnnotation;
-use HJerichen\ClassInstantiator\Test\Helpers\ClassForExtensionHasHigherPriorityThenAnnotation2;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassForExtensionHasHigherPriorityThenAttribute;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassForExtensionHasHigherPriorityThenAttribute2;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassInstantiatorExtended;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironment;
-use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAnnotation;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAttribute;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAttributeNotClass;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAttributeStored;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAttributeWrongClass;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAttributeWrongValue;
-use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithNotInstantiatorInAnnotation;
-use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithUnknownAnnotation;
-use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithWrongAnnotation;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfIntegerClass;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfInterface;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithIntegerParameter;
@@ -186,51 +182,13 @@ class ClassInstantiatorTest extends TestCase
         self::assertEquals($expected, $actual);
     }
 
-    public function testInstantiateWithAnnotation(): void
-    {
-        $class = ClassWithDependencyOfEnvironmentWithAnnotation::class;
-
-        $expected = new $class(new Environment(4));
-        $actual = $this->classInstantiator->instantiateClass($class);
-        self::assertEquals($expected, $actual);
-    }
-
-    public function testInstantiateWithAnnotationOnInterface(): void
+    public function testInstantiateWithAttributeOnInterface(): void
     {
         $class = SomeInterface2::class;
 
         $expected = new SomeInterface2Implementation(2);
         $actual = $this->classInstantiator->instantiateClass($class);
         self::assertEquals($expected, $actual);
-    }
-
-    public function testInstantiateWithWrongAnnotation(): void
-    {
-        $class = ClassWithDependencyOfEnvironmentWithWrongAnnotation::class;
-
-        $this->expectException(InstantiateParameterException::class);
-
-        $this->classInstantiator->instantiateClass($class);
-    }
-
-    public function testInstantiateWithUnknownClassInAnnotation(): void
-    {
-        $class = ClassWithDependencyOfEnvironmentWithUnknownAnnotation::class;
-
-        $this->expectException(InstantiatorAnnotationException::class);
-        $this->expectExceptionMessage('Invalid value for Annotation "Instantiator": ');
-
-        $this->classInstantiator->instantiateClass($class);
-    }
-
-    public function testInstantiateWithNotInstantiatorClassInAnnotation(): void
-    {
-        $class = ClassWithDependencyOfEnvironmentWithNotInstantiatorInAnnotation::class;
-
-        $this->expectException(InstantiatorAnnotationException::class);
-        $this->expectExceptionMessage('Invalid value for Annotation "Instantiator": Value in class HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithNotInstantiatorInAnnotation is not an instance of ClassInstantiator');
-
-        $this->classInstantiator->instantiateClass($class);
     }
 
     public function testInstantiateWithAttribute(): void
@@ -276,7 +234,7 @@ class ClassInstantiatorTest extends TestCase
         }
         $class = ClassWithDependencyOfEnvironmentWithAttributeWrongClass::class;
 
-        $this->expectException(InstantiatorAnnotationException::class);
+        $this->expectException(InstantiatorAttributeException::class);
         $this->expectExceptionMessage('Invalid value for Attribute "Instantiator": Value in class HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAttributeWrongClass is not an instance of ClassInstantiator');
 
         $this->classInstantiator->instantiateClass($class);
@@ -302,7 +260,7 @@ class ClassInstantiatorTest extends TestCase
         }
         $class = ClassWithDependencyOfEnvironmentWithAttributeWrongValue::class;
 
-        $this->expectException(InstantiatorAnnotationException::class);
+        $this->expectException(InstantiatorAttributeException::class);
         $this->expectExceptionMessage('Invalid value for Attribute "Instantiator"');
 
         $this->classInstantiator->instantiateClass($class);
@@ -349,7 +307,7 @@ class ClassInstantiatorTest extends TestCase
         $this->classInstantiator->injectObject($object, $class);
     }
 
-    public function testStoreObjectWithAnnotation(): void
+    public function testStoreObjectWithAttribute(): void
     {
         $class = InterfaceToStore::class;
         $object1 = $this->classInstantiator->instantiateClass($class);
@@ -357,7 +315,7 @@ class ClassInstantiatorTest extends TestCase
         self::assertSame($object1, $object2);
     }
 
-    public function testNotStoreObjectWithAnnotation(): void
+    public function testNotStoreObjectWithAttribute(): void
     {
         $class = SomeInterface2::class;
         $object1 = $this->classInstantiator->instantiateClass($class);
@@ -365,7 +323,7 @@ class ClassInstantiatorTest extends TestCase
         self::assertNotSame($object1, $object2);
     }
 
-    public function testAnnotationWithOnlyStore(): void
+    public function testAttributeWithOnlyStore(): void
     {
         $class = ClassWithOnlyStore::class;
         $object1 = $this->classInstantiator->instantiateClass($class);
@@ -373,17 +331,17 @@ class ClassInstantiatorTest extends TestCase
         self::assertSame($object1, $object2);
     }
 
-    public function testExtensionHasHigherPriorityThenAnnotation(): void
+    public function testExtensionHasHigherPriorityThenAttribute(): void
     {
-        $class = ClassForExtensionHasHigherPriorityThenAnnotation::class;
+        $class = ClassForExtensionHasHigherPriorityThenAttribute::class;
         $object1 = $this->classInstantiatorExtended->instantiateClass($class);
         $object2 = $this->classInstantiatorExtended->instantiateClass($class);
         self::assertNotSame($object1, $object2);
     }
 
-    public function testExtensionHasHigherPriorityThenAnnotationWithUseStore(): void
+    public function testExtensionHasHigherPriorityThenAttributeWithUseStore(): void
     {
-        $class = ClassForExtensionHasHigherPriorityThenAnnotation2::class;
+        $class = ClassForExtensionHasHigherPriorityThenAttribute2::class;
         $object1 = $this->classInstantiatorExtended->instantiateClass($class);
         $object2 = $this->classInstantiatorExtended->instantiateClass($class);
         self::assertSame($object1, $object2);

@@ -11,7 +11,7 @@ use Attribute;
 class Instantiator
 {
     public function __construct(
-        public string $class,
+        public ?string $class = null,
         public bool $store = false
     ) {
     }

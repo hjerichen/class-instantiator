@@ -2,12 +2,12 @@
 
 namespace HJerichen\ClassInstantiator\Test\Helpers;
 
-use HJerichen\ClassInstantiator\Annotation\Instantiator;
+use HJerichen\ClassInstantiator\Attribute\Instantiator;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
- * @Instantiator(ClassInstantiatorExtended::class)
  */
+#[Instantiator(class: ClassInstantiatorExtended::class)]
 interface SomeInterface2
 {
 

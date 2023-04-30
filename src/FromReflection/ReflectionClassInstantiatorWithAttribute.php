@@ -4,7 +4,7 @@ namespace HJerichen\ClassInstantiator\FromReflection;
 
 use HJerichen\ClassInstantiator\Attribute\Instantiator as InstantiatorAttribute;
 use HJerichen\ClassInstantiator\ClassInstantiator;
-use HJerichen\ClassInstantiator\Exception\InstantiatorAnnotationException;
+use HJerichen\ClassInstantiator\Exception\InstantiatorAttributeException;
 use HJerichen\ClassInstantiator\ObjectStore;
 use ReflectionClass;
 use Throwable;
@@ -49,7 +49,7 @@ class ReflectionClassInstantiatorWithAttribute implements ReflectionClassInstant
                 $this->attribute = $attributes[0]->newInstance();
             }
         } catch (Throwable $exception) {
-            throw $this->exceptionForAnnotationException($exception);
+            throw $this->exceptionForAttributeException($exception);
         }
     }
 
@@ -88,17 +88,17 @@ class ReflectionClassInstantiatorWithAttribute implements ReflectionClassInstant
         unset($this->attribute, $this->instantiator, $this->class);
     }
 
-    private function exceptionForNotAClassInstantiator(): InstantiatorAnnotationException
+    private function exceptionForNotAClassInstantiator(): InstantiatorAttributeException
     {
         $message = 'Invalid value for Attribute "Instantiator": Value in class %s is not an instance of ClassInstantiator';
         $message = sprintf($message, $this->class->getName());
-        return new InstantiatorAnnotationException($message);
+        return new InstantiatorAttributeException($message);
     }
 
-    private function exceptionForAnnotationException(Throwable $exception): InstantiatorAnnotationException
+    private function exceptionForAttributeException(Throwable $exception): InstantiatorAttributeException
     {
         $message = 'Invalid value for Attribute "Instantiator": %s';
         $message = sprintf($message, $exception->getMessage());
-        throw new InstantiatorAnnotationException($message, 0, $exception);
+        throw new InstantiatorAttributeException($message, 0, $exception);
     }
 }

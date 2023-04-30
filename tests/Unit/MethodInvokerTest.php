@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php /** @noinspection PhpRedundantOptionalArgumentInspection */
+declare(strict_types=1);
 
 namespace HJerichen\ClassInstantiator\Test\Unit;
 
@@ -7,7 +8,7 @@ use HJerichen\ClassInstantiator\ClassInstantiator;
 use HJerichen\ClassInstantiator\Exception\InstantiateParameterException;
 use HJerichen\ClassInstantiator\MethodInvoker;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassInstantiatorExtended;
-use HJerichen\ClassInstantiator\Test\Helpers\ClassMethodWithParameterWhoHasAnnotation;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassMethodWithParameterWhoHasAttribute;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithIntegerParameter;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithSimpleDependency;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithTwoIntegerParameters;
@@ -115,12 +116,12 @@ class MethodInvokerTest extends TestCase
         $this->methodInvoker->invokeMethod($methodCallable);
     }
 
-    public function testInvokeMethodWithParameterHasAnnotation(): void
+    public function testInvokeMethodWithParameterHasAttribute(): void
     {
         $classInstantiator = new ClassInstantiator();
         $methodInvoker = new MethodInvoker($classInstantiator);
 
-        $class = new ClassMethodWithParameterWhoHasAnnotation();
+        $class = new ClassMethodWithParameterWhoHasAttribute();
         $callable = [$class, 'method'];
 
         $actual = $methodInvoker->invokeMethod($callable);

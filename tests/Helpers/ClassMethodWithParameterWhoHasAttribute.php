@@ -5,9 +5,9 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
  */
-class ClassMethodWithParameterWhoHasAnnotation
+class ClassMethodWithParameterWhoHasAttribute
 {
-    public function method(ClassWithDependencyOfEnvironmentWithAnnotation $parameter): Environment
+    public function method(ClassWithDependencyOfEnvironmentWithAttribute $parameter): Environment
     {
         return $parameter->getEnvironment();
     }

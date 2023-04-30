@@ -5,7 +5,7 @@ namespace HJerichen\ClassInstantiator\Exception;
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
  */
-class InstantiatorAnnotationException extends ClassInstantiatorException
+class InstantiatorAttributeException extends ClassInstantiatorException
 {
 
 }

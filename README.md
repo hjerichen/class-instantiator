@@ -77,17 +77,15 @@ $instantiator = new MyInstantiator();
 $object = $instantiator->instantiateClass(ClassA::class);
 ```
 
-Use an annotation to define a class instantiator extension:
+Use an attribute to define a class instantiator extension:
 
 ```php
 <?php
 
-use HJerichen\ClassInstantiator\Annotation\Instantiator;
+use HJerichen\ClassInstantiator\Attribute\Instantiator;
 use HJerichen\ClassInstantiator\ClassInstantiator;
 
-/**
- * @Instantiator(MyInstantiator::class)
- */
+#[Instantiator(class: MyInstantiator::class)]
 class ClassA {
     public function __construct(PDO $database, int $id) {}
 }
@@ -111,28 +109,26 @@ $instantiator = new ClassInstantiator();
 $object = $instantiator->instantiateClass(ClassB::class);
 ```
 
-Instantiate classes with an extension has a higher priority then using an annotation.  
-This allows overwriting the annotation und instantiate classes depending on your current needs.  
+Instantiate classes with an extension has a higher priority then using an attribute.  
+This allows overwriting the attribute and instantiate classes depending on your current needs.  
 
 ##### Storing Objects
 
-It is possible to sore objects permanently with an annotation.  
+It is possible to sore objects permanently with an attribute.  
 Those objects will then be returned when a matching class is requested instead of creating a new one every time.  
 
 ```php
 <?php
 
-use HJerichen\ClassInstantiator\Annotation\Instantiator;
+use HJerichen\ClassInstantiator\Attribute\Instantiator;
 
-/**
- * @Instantiator(class=MyInstantiator::class, store=true)
- */
+ #[Instantiator(class: MyInstantiator::class, store: true)]
 class ClassA {
     public function __construct(PDO $database, int $id) {}
 }
 ```
 
-Storing objects with annotation does not work when the instantiation is done in the extension.  
+Storing objects with attribute does not work when the instantiation is done in the extension.  
 This is because of the higher priority for extensions.  
 But you can store objects as well when using the method "injectObject" inside the creation method of the extension.
 
