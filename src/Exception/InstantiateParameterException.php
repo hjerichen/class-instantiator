@@ -28,9 +28,9 @@ class InstantiateParameterException extends ClassInstantiatorException implement
         $parameterName = $this->reflectionParameter->getName();
         $parameterType = $this->reflectionParameter->getType();
 
-        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
-        $parameterTypeName = $parameterType ? $parameterType->getName() : '';
+        $parameterTypeName = $parameterType?->getName() ?? '';
 
-        return sprintf("Can't instantiate \"%s $%s\" for method \"%s\" of class \"%s\"", $parameterTypeName, $parameterName, $methodName, $className);
+        $message = "Can't instantiate \"%s $%s\" for method \"%s\" of class \"%s\"";
+        return sprintf($message, $parameterTypeName, $parameterName, $methodName, $className);
     }
 }
