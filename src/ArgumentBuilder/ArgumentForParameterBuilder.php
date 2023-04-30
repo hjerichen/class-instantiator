@@ -12,12 +12,11 @@ use ReflectionParameter;
  */
 class ArgumentForParameterBuilder
 {
-    private ClassInstantiator $classInstantiator;
     private array $predefinedArguments = [];
 
-    public function __construct(ClassInstantiator $classInstantiator)
-    {
-        $this->classInstantiator = $classInstantiator;
+    public function __construct(
+        private readonly ClassInstantiator $classInstantiator
+    ) {
     }
 
     public function setPredefinedArguments(array $predefinedArguments): void

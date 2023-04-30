@@ -15,22 +15,15 @@ use ReflectionClass;
  */
 class ReflectionClassInstantiatorWithAnnotation implements ReflectionClassInstantiator
 {
-    private ReflectionClassInstantiator $reflectionClassInstantiator;
-    private ClassInstantiator $instantiatorOfInstantiator;
-    private ObjectStore $objectStore;
-
     private ?InstantiatorAnnotation $annotation;
     private ClassInstantiator $instantiator;
     private ReflectionClass $class;
 
     public function __construct(
-        ReflectionClassInstantiator $reflectionClassInstantiator,
-        ClassInstantiator $instantiatorOfInstantiator,
-        ObjectStore $objectStore
+        private readonly ReflectionClassInstantiator $reflectionClassInstantiator,
+        private readonly ClassInstantiator $instantiatorOfInstantiator,
+        private readonly ObjectStore $objectStore
     ) {
-        $this->reflectionClassInstantiator = $reflectionClassInstantiator;
-        $this->instantiatorOfInstantiator = $instantiatorOfInstantiator;
-        $this->objectStore = $objectStore;
     }
 
     public function instantiateClass(ReflectionClass $reflectionClass, array $predefinedArguments): ?object

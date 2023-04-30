@@ -11,13 +11,13 @@ use ReflectionClass;
  */
 class ArgumentsForConstructorBuilder
 {
-    private ArgumentForParameterBuilder $argumentForParameterBuilder;
-    private ReflectionClass $reflectionClass;
+    private readonly ArgumentForParameterBuilder $argumentForParameterBuilder;
 
-    public function __construct(ClassInstantiator $classInstantiator, ReflectionClass $reflectionClass)
-    {
+    public function __construct(
+        ClassInstantiator $classInstantiator,
+        private readonly ReflectionClass $reflectionClass
+    ) {
         $this->argumentForParameterBuilder = new ArgumentForParameterBuilder($classInstantiator);
-        $this->reflectionClass = $reflectionClass;
     }
 
     public function setPredefinedArguments(array $predefinedArguments): void

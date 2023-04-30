@@ -6,27 +6,26 @@ use Psr\Container\ContainerInterface;
 
 class ClassInstantiatorContainer implements ContainerInterface
 {
-    private ClassInstantiator $classInstantiator;
-    /** @var object[] */
+    /** @var array<string,object> */
     private array $entries = [];
 
-    public function __construct(ClassInstantiator $classInstantiator)
-    {
-        $this->classInstantiator = $classInstantiator;
+    public function __construct(
+        private readonly ClassInstantiator $classInstantiator
+    ) {
     }
 
-    public function has($id): bool
+    public function has(string $id): bool
     {
         return class_exists($id);
     }
 
-    public function get($id): object
+    public function get(string $id): object
     {
         $this->loadEntry($id);
         return $this->entries[$id];
     }
 
-    private function loadEntry($id): void
+    private function loadEntry(string $id): void
     {
         if (!array_key_exists($id, $this->entries)) {
             $this->entries[$id] = $this->classInstantiator->instantiateClass($id);

@@ -11,11 +11,9 @@ use ReflectionClass;
  */
 class ReflectionClassInstantiatorBase implements ReflectionClassInstantiator
 {
-    private ClassInstantiator $classInstantiator;
-
-    public function __construct(ClassInstantiator $classInstantiator)
-    {
-        $this->classInstantiator = $classInstantiator;
+    public function __construct(
+        private readonly ClassInstantiator $classInstantiator
+    ) {
     }
 
     public function instantiateClass(ReflectionClass $reflectionClass, array $predefinedArguments): ?object

@@ -7,13 +7,10 @@ use ReflectionClass;
 
 class ReflectionClassInstantiatorWithObjectStore implements ReflectionClassInstantiator
 {
-    private ReflectionClassInstantiator $reflectionClassInstantiator;
-    private ObjectStore $objectStore;
-
-    public function __construct(ReflectionClassInstantiator $reflectionClassInstantiator, ObjectStore $objectStore)
-    {
-        $this->reflectionClassInstantiator = $reflectionClassInstantiator;
-        $this->objectStore = $objectStore;
+    public function __construct(
+        private readonly ReflectionClassInstantiator $reflectionClassInstantiator,
+        private readonly ObjectStore $objectStore
+    ) {
     }
 
     public function instantiateClass(ReflectionClass $reflectionClass, array $predefinedArguments): ?object

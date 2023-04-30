@@ -10,12 +10,9 @@ use ReflectionParameter;
  */
 class InstantiateParameterException extends ClassInstantiatorException implements ContainerExceptionInterface
 {
-    private ReflectionParameter $reflectionParameter;
-
-    public function __construct(ReflectionParameter $reflectionParameter)
-    {
-        $this->reflectionParameter = $reflectionParameter;
-
+    public function __construct(
+        private readonly ReflectionParameter $reflectionParameter
+    ) {
         $message = $this->createMessage();
         parent::__construct($message);
     }

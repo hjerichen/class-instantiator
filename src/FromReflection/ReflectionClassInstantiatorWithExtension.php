@@ -15,17 +15,13 @@ use ReflectionProperty;
  */
 class ReflectionClassInstantiatorWithExtension implements ReflectionClassInstantiator
 {
-    private ReflectionClassInstantiator $reflectionClassInstantiator;
-    private ClassInstantiator $classInstantiator;
     private ReflectionClass $class;
     private array $predefinedArguments;
 
     public function __construct(
-        ReflectionClassInstantiator $classInstantiator,
-        ClassInstantiator $classInstantiatorSimple
+        private readonly ReflectionClassInstantiator $reflectionClassInstantiator,
+        private readonly ClassInstantiator $classInstantiator
     ) {
-        $this->classInstantiator = $classInstantiatorSimple;
-        $this->reflectionClassInstantiator = $classInstantiator;
     }
 
     public function instantiateClass(ReflectionClass $reflectionClass, array $predefinedArguments): ?object
@@ -48,8 +44,9 @@ class ReflectionClassInstantiatorWithExtension implements ReflectionClassInstant
 
     private function instantiateClassWithExtensionProperty(): ?object
     {
+        /** @noinspection OneTimeUseVariablesInspection */
         $property = $this->getPropertyThatContainsWantedClass();
-        return $property ? $property->getValue($this->classInstantiator) : null;
+        return $property?->getValue($this->classInstantiator);
     }
 
     private function getPropertyThatContainsWantedClass(): ?ReflectionProperty
@@ -57,6 +54,7 @@ class ReflectionClassInstantiatorWithExtension implements ReflectionClassInstant
         $properties = $this->getPropertiesOfClassInstantiator();
         foreach ($properties as $property) {
             $className = $this->class->getName();
+            /** @noinspection PhpExpressionResultUnusedInspection */
             $property->setAccessible(true);
             if ($property->getValue($this->classInstantiator) instanceof $className) {
                 return $property;
@@ -89,7 +87,6 @@ class ReflectionClassInstantiatorWithExtension implements ReflectionClassInstant
             $returnType = $method->getReturnType();
             if ($returnType === null) continue;
 
-            /** @noinspection PhpPossiblePolymorphicInvocationInspection */
             if ($returnType->getName() === $this->class->getName()) {
                 return $method;
             }

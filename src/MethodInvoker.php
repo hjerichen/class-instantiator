@@ -12,13 +12,12 @@ use TypeError;
  */
 class MethodInvoker
 {
-    private ClassInstantiator $classInstantiator;
     /** @var callable */
     private $methodCallable;
 
-    public function __construct(ClassInstantiator $classInstantiator)
-    {
-        $this->classInstantiator = $classInstantiator;
+    public function __construct(
+        private readonly ClassInstantiator $classInstantiator
+    ) {
     }
 
     public function invokeMethod(callable $methodCallable, array $predefinedArguments = [])

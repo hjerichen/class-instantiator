@@ -26,16 +26,13 @@ class ClassInstantiator
 
     public function instantiateClass(string $class, array $predefinedArguments = []): object
     {
-        try {
-            $reflectionClass = new ReflectionClass($class);
-        } catch (ReflectionException $exception) {
-            throw new UnknownClassException($class);
-        }
+        $reflectionClass = $this->reflectClass($class);
         return $this->instantiateClassFromReflection($reflectionClass, $predefinedArguments);
     }
 
     public function instantiateClassFromReflection(ReflectionClass $class, $predefinedArguments = []): object
     {
+        /** @noinspection OneTimeUseVariablesInspection */
         $reflectionClassInstantiator = $this->createReflectionClassInstantiator();
         return $reflectionClassInstantiator->instantiateClass($class, $predefinedArguments);
     }
@@ -55,6 +52,15 @@ class ClassInstantiator
         $classInstantiator = new ReflectionClassInstantiatorWithExtension($classInstantiator, $this);
         $classInstantiator = new ReflectionClassInstantiatorWithObjectStore($classInstantiator, $this->objectStore);
         return $classInstantiator;
+    }
+
+    private function reflectClass(string $class): ReflectionClass
+    {
+        try {
+            return new ReflectionClass($class);
+        } catch (ReflectionException) {
+            throw new UnknownClassException($class);
+        }
     }
 
     private function attributesAreSupported(): bool
