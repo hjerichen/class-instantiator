@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpPropertyOnlyWrittenInspection */
 declare(strict_types=1);
 
 namespace HJerichen\ClassInstantiator\Test\Helpers;
@@ -12,11 +12,8 @@ use HJerichen\ClassInstantiator\ClassInstantiator;
  */
 class ClassWithDependencyOfEnvironmentWithWrongAnnotation
 {
-    private Environment $environment;
-
-    /** @noinspection UnusedConstructorDependenciesInspection */
-    public function __construct(Environment $environment)
-    {
-        $this->environment = $environment;
+    public function __construct(
+        private readonly Environment $environment
+    ) {
     }
 }

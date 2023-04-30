@@ -20,7 +20,7 @@ class ClassDoesNotMatchForInjectionExceptionTest extends TestCase
 
         $exception = new ClassDoesNotMatchForInjectionException($object, $class);
 
-        $expected = "Object of class {$objectClass} is not instance of {$class}";
+        $expected = "Object of class $objectClass is not instance of $class";
         $actual = $exception->getMessage();
         self::assertEquals($expected, $actual);
     }

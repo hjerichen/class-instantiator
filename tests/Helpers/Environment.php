@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php /** @noinspection PhpPropertyOnlyWrittenInspection */
+declare(strict_types=1);
 
 namespace HJerichen\ClassInstantiator\Test\Helpers;
 
@@ -7,11 +8,8 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
  */
 class Environment
 {
-    private int $value;
-
-    /** @noinspection UnusedConstructorDependenciesInspection */
-    public function __construct(int $value)
-    {
-        $this->value = $value;
+    public function __construct(
+        private readonly int $value
+    ) {
     }
 }

@@ -25,9 +25,10 @@ class MethodInvokerTest extends TestCase
 {
     use ProphecyTrait;
 
-    private MethodInvoker $methodInvoker;
-    private ObjectProphecy $classInstantiator;
     private ClassInstantiatorExtended $classInstantiatorExtended;
+    private MethodInvoker $methodInvoker;
+    /** @var ObjectProphecy<ClassInstantiator> */
+    private ObjectProphecy $classInstantiator;
 
     /**
      *

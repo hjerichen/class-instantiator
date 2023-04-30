@@ -24,6 +24,12 @@ class ClassInstantiator
         $this->objectStore = new ObjectStore();
     }
 
+    /**
+     * @template T
+     * @param class-string<T> $class
+     * @param array $predefinedArguments
+     * @return T
+     */
     public function instantiateClass(string $class, array $predefinedArguments = []): object
     {
         $reflectionClass = $this->reflectClass($class);
@@ -54,6 +60,7 @@ class ClassInstantiator
         return $classInstantiator;
     }
 
+    /** @param class-string $class */
     private function reflectClass(string $class): ReflectionClass
     {
         try {

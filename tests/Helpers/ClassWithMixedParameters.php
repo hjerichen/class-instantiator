@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php /** @noinspection PhpPropertyOnlyWrittenInspection */
+declare(strict_types=1);
 
 namespace HJerichen\ClassInstantiator\Test\Helpers;
 
@@ -7,17 +8,11 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
  */
 class ClassWithMixedParameters
 {
-    private int $integer;
-    private string $string;
-    private array $array;
-    private SimpleClass $object;
-
-    /** @noinspection UnusedConstructorDependenciesInspection */
-    public function __construct(int $integer, string $string, array $array, SimpleClass $object)
-    {
-        $this->integer = $integer;
-        $this->string = $string;
-        $this->array = $array;
-        $this->object = $object;
+    public function __construct(
+        private readonly int $integer,
+        private readonly string $string,
+        private readonly array $array,
+        private readonly SimpleClass $object
+    ) {
     }
 }

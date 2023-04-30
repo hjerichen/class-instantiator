@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php /** @noinspection PhpPropertyOnlyWrittenInspection */
+declare(strict_types=1);
 
 namespace HJerichen\ClassInstantiator\Test\Helpers;
 
@@ -7,13 +8,9 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
  */
 class ClassWithTwoSimpleDependencies
 {
-    private SimpleClass $simpleClass;
-    private ClassWithSimpleDependency $classWithDependency;
-
-    /** @noinspection UnusedConstructorDependenciesInspection */
-    public function __construct(SimpleClass $simpleClass, ClassWithSimpleDependency $classWithDependency)
-    {
-        $this->simpleClass = $simpleClass;
-        $this->classWithDependency = $classWithDependency;
+    public function __construct(
+        private readonly SimpleClass $simpleClass,
+        private readonly ClassWithSimpleDependency $classWithDependency
+    ) {
     }
 }

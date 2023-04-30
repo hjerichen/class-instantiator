@@ -33,16 +33,14 @@ class ClassInstantiatorContainerTest extends TestCase
 
     public function testHasForExistingClass(): void
     {
-        $expected = true;
         $actual = $this->container->has(SimpleClass::class);
-        self::assertEquals($expected, $actual);
+        self::assertTrue($actual);
     }
 
     public function testHasForNotExistingClass(): void
     {
-        $expected = false;
         $actual = $this->container->has('SomeClassDoesNotExist');
-        self::assertEquals($expected, $actual);
+        self::assertFalse($actual);
     }
 
     public function testGetForInstantiableClass(): void

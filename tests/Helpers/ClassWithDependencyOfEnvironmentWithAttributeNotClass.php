@@ -1,11 +1,10 @@
 <?php
-/** @noinspection PhpUnusedAliasInspection */
+/** @noinspection PhpUnused */
 declare(strict_types=1);
 
 namespace HJerichen\ClassInstantiator\Test\Helpers;
 
 use HJerichen\ClassInstantiator\Attribute\Instantiator;
-use HJerichen\ClassInstantiator\Test\Helpers\ClassInstantiatorExtended;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
@@ -13,11 +12,9 @@ use HJerichen\ClassInstantiator\Test\Helpers\ClassInstantiatorExtended;
 #[Instantiator(class: 'test', store: true)]
 class ClassWithDependencyOfEnvironmentWithAttributeNotClass
 {
-    private Environment $environment;
-
-    public function __construct(Environment $environment)
-    {
-        $this->environment = $environment;
+    public function __construct(
+        private readonly Environment $environment
+    ) {
     }
 
     public function getEnvironment(): Environment
