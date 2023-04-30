@@ -70,16 +70,16 @@ class ArgumentForParameterBuilder
 
     private function isArgumentAStringButIntegerIsNeeded($argument, ReflectionParameter $parameter): bool
     {
-        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
         return is_string($argument) && is_numeric($argument) && $parameter->getType() && $parameter->getType()->getName();
     }
 
     private function instantiateParameter(ReflectionParameter $parameter): object
     {
-        $classOfParameter = $parameter->getClass();
-        if ($classOfParameter === null) {
+        $parameterType = $parameter->getType();
+
+        if (!$parameterType || $parameterType->isBuiltin()) {
             throw new InstantiateParameterException($parameter);
         }
-        return $this->classInstantiator->instantiateClass($classOfParameter->getName(), $this->predefinedArguments);
+        return $this->classInstantiator->instantiateClass($parameterType->getName(), $this->predefinedArguments);
     }
 }
