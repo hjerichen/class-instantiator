@@ -57,6 +57,10 @@ class ClassInstantiatorContainerTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    /**
+     * @psalm-suppress ArgumentTypeCoercion Is testet.
+     * @psalm-suppress UndefinedClass Is testet.
+     */
     public function testGetThrowsNotFoundExceptionForNotExistingClasses(): void
     {
         $this->expectException(NotFoundExceptionInterface::class);

@@ -20,7 +20,8 @@ class MethodInvoker
     ) {
     }
 
-    public function invokeMethod(callable $methodCallable, array $predefinedArguments = [])
+    /** @param array<string,mixed> $predefinedArguments */
+    public function invokeMethod(callable $methodCallable, array $predefinedArguments = []): mixed
     {
         $this->methodCallable = $methodCallable;
 
@@ -28,6 +29,7 @@ class MethodInvoker
         return $methodCallable(...$parameters);
     }
 
+    /** @param array<string,mixed> $predefinedArguments */
     private function buildParameters(array $predefinedArguments): array
     {
         $reflectionMethod = $this->createReflectionMethod();
@@ -36,6 +38,11 @@ class MethodInvoker
         return $argumentsBuilder->buildArguments();
     }
 
+    /**
+     * @psalm-suppress InvalidArrayOffset
+     * @psalm-suppress InvalidArrayAccess
+     * @psalm-suppress MixedArgument
+     */
     private function createReflectionMethod(): ReflectionMethod
     {
         try {
@@ -43,7 +50,7 @@ class MethodInvoker
             return new ReflectionMethod($object, $method);
         } catch(Throwable $throwable) {
             $message = sprintf('Failed creating reflection method: %s', $throwable->getMessage());
-            throw new TypeError($message, $throwable->getCode(), $throwable);
+            throw new TypeError($message, (int)$throwable->getCode(), $throwable);
         }
     }
 }

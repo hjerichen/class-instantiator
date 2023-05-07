@@ -5,6 +5,7 @@ namespace HJerichen\ClassInstantiator\ArgumentBuilder;
 use HJerichen\ClassInstantiator\ClassInstantiator;
 use HJerichen\ClassInstantiator\Exception\InstantiateParameterException;
 use HJerichen\Collections\Reflection\ReflectionParameterCollection;
+use ReflectionNamedType;
 use ReflectionParameter;
 
 /**
@@ -12,6 +13,7 @@ use ReflectionParameter;
  */
 class ArgumentForParameterBuilder
 {
+    /** @var array<string,mixed> */
     private array $predefinedArguments = [];
 
     public function __construct(
@@ -19,21 +21,25 @@ class ArgumentForParameterBuilder
     ) {
     }
 
+    /** @param array<string,mixed> $predefinedArguments */
     public function setPredefinedArguments(array $predefinedArguments): void
     {
         $this->predefinedArguments = $predefinedArguments;
     }
 
+    /** @return list<mixed> */
     public function buildArgumentsForParameters(ReflectionParameterCollection $parameters): array
     {
+        /** @var list<mixed> $arguments */
         $arguments = [];
         foreach ($parameters as $parameter) {
+            /** @psalm-suppress MixedAssignment Does not need to be determined. */
             $arguments[] = $this->buildArgumentForParameter($parameter);
         }
         return $arguments;
     }
 
-    private function buildArgumentForParameter(ReflectionParameter $parameter)
+    private function buildArgumentForParameter(ReflectionParameter $parameter): mixed
     {
         return $this->getPredefinedArgumentForParameter($parameter) ?? $this->instantiateParameter($parameter);
     }
@@ -49,17 +55,18 @@ class ArgumentForParameterBuilder
             return null;
         }
 
+        /** @psalm-suppress MixedAssignment Does not need to be determined. */
         $argument = $this->predefinedArguments[$parameter->getName()];
         return $this->convertArgumentForParameter($argument, $parameter);
     }
 
     /**
-     * @param $argument
+     * @param mixed $argument
      * @param ReflectionParameter $parameter
      * @return mixed
      * @noinspection PhpMissingReturnTypeInspection
      */
-    private function convertArgumentForParameter($argument, ReflectionParameter $parameter)
+    private function convertArgumentForParameter(mixed $argument, ReflectionParameter $parameter)
     {
         if ($this->isArgumentAStringButIntegerIsNeeded($argument, $parameter)) {
             return (int)$argument;
@@ -67,16 +74,20 @@ class ArgumentForParameterBuilder
         return $argument;
     }
 
-    private function isArgumentAStringButIntegerIsNeeded($argument, ReflectionParameter $parameter): bool
+    private function isArgumentAStringButIntegerIsNeeded(mixed $argument, ReflectionParameter $parameter): bool
     {
-        return is_string($argument) && is_numeric($argument) && $parameter->getType() && $parameter->getType()->getName();
+        return
+            is_string($argument) &&
+            is_numeric($argument) &&
+            $parameter->getType() instanceof ReflectionNamedType &&
+            $parameter->getType()->getName();
     }
 
     private function instantiateParameter(ReflectionParameter $parameter): object
     {
         $parameterType = $parameter->getType();
 
-        if (!$parameterType || $parameterType->isBuiltin()) {
+        if (!($parameterType instanceof ReflectionNamedType) || $parameterType->isBuiltin()) {
             throw new InstantiateParameterException($parameter);
         }
         return $this->classInstantiator->instantiateClass($parameterType->getName(), $this->predefinedArguments);

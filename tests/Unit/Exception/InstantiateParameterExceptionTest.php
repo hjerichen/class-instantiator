@@ -15,6 +15,7 @@ class InstantiateParameterExceptionTest extends TestCase
 {
     private InstantiateParameterException $exception;
 
+    /** @psalm-suppress PossiblyNullReference */
     protected function setUp(): void
     {
         parent::setUp();

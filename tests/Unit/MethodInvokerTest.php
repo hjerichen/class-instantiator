@@ -1,4 +1,5 @@
-<?php /** @noinspection PhpRedundantOptionalArgumentInspection */
+<?php
+/** @noinspection PhpRedundantOptionalArgumentInspection */
 declare(strict_types=1);
 
 namespace HJerichen\ClassInstantiator\Test\Unit;
@@ -46,6 +47,7 @@ class MethodInvokerTest extends TestCase
 
     /* TESTS */
 
+    /** @psalm-suppress MixedAssignment */
     public function testWithoutParameters(): void
     {
         $value1 = 5;
@@ -57,6 +59,7 @@ class MethodInvokerTest extends TestCase
         self::assertEquals($expected, $actual);
     }
 
+    /** @psalm-suppress MixedAssignment */
     public function testWithParameter(): void
     {
         $value1 = 5;
@@ -77,6 +80,7 @@ class MethodInvokerTest extends TestCase
         $this->methodInvoker->invokeMethod($methodCallable);
     }
 
+    /** @psalm-suppress InvalidArgument Is being tested. */
     public function testWithWrongMethodName(): void
     {
         $methodCallable = [$this->classInstantiatorExtended, 'something'];
@@ -86,6 +90,7 @@ class MethodInvokerTest extends TestCase
         $this->methodInvoker->invokeMethod($methodCallable);
     }
 
+    /** @psalm-suppress MixedAssignment */
     public function testWithParameterToInstantiate(): void
     {
         $arguments = ['value' => 10, 'integer' => 40];
@@ -112,10 +117,11 @@ class MethodInvokerTest extends TestCase
         $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Failed creating reflection method:');
 
-        $methodCallable = static function() {};
+        $methodCallable = static function(): void {};
         $this->methodInvoker->invokeMethod($methodCallable);
     }
 
+    /** @psalm-suppress MixedAssignment */
     public function testInvokeMethodWithParameterHasAttribute(): void
     {
         $classInstantiator = new ClassInstantiator();
@@ -129,6 +135,7 @@ class MethodInvokerTest extends TestCase
         self::assertEquals($expected, $actual);
     }
 
+    /** @psalm-suppress MixedAssignment */
     public function testInvokeMethodWithStringForIntParameter(): void
     {
         $callable = [$this->classInstantiatorExtended, 'createIntegerObjectWithParameter'];

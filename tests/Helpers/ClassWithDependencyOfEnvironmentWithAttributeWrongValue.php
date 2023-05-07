@@ -9,6 +9,8 @@ use HJerichen\ClassInstantiator\Attribute\Instantiator;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
+ * @psalm-suppress InvalidArgument Is tested
+ * @psalm-api
  */
 #[Instantiator(class: SimpleClass::class, store: 'test')]
 class ClassWithDependencyOfEnvironmentWithAttributeWrongValue

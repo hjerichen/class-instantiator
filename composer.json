@@ -14,16 +14,22 @@
         "hjerichen/collections": "^1.2",
         "psr/container": "^2.0"
     },
-    "autoload": {
-        "psr-4": {
-            "HJerichen\\ClassInstantiator\\": "src/",
-            "HJerichen\\ClassInstantiator\\Test\\": "tests"
-        }
-    },
     "require-dev": {
         "roave/security-advisories": "dev-master",
         "phpunit/phpunit": "^9.6",
         "phpspec/prophecy-phpunit": "^2.0",
-        "phpdocumentor/reflection-docblock": "^5.0"
+        "phpdocumentor/reflection-docblock": "^5.0",
+        "vimeo/psalm": "^5.11",
+        "psalm/plugin-phpunit": "^0.18.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "HJerichen\\ClassInstantiator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "HJerichen\\ClassInstantiator\\Test\\": "tests"
+        }
     }
 }

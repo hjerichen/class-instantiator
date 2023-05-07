@@ -10,6 +10,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS)]
 class Instantiator
 {
+    /** @param class-string|null $class */
     public function __construct(
         public ?string $class = null,
         public bool $store = false

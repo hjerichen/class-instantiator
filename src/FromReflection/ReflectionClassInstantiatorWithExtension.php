@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace HJerichen\ClassInstantiator\FromReflection;
 
@@ -8,6 +9,7 @@ use HJerichen\Collections\Reflection\ReflectionMethodCollection;
 use HJerichen\Collections\Reflection\ReflectionPropertyCollection;
 use ReflectionClass;
 use ReflectionMethod;
+use ReflectionNamedType;
 use ReflectionProperty;
 
 /**
@@ -16,6 +18,7 @@ use ReflectionProperty;
 class ReflectionClassInstantiatorWithExtension implements ReflectionClassInstantiator
 {
     private ReflectionClass $class;
+    /** @var array<string,mixed> */
     private array $predefinedArguments;
 
     public function __construct(
@@ -24,6 +27,15 @@ class ReflectionClassInstantiatorWithExtension implements ReflectionClassInstant
     ) {
     }
 
+    /**
+     * @template T of object
+     * @param ReflectionClass<T> $reflectionClass
+     * @param array<string,mixed> $predefinedArguments
+     * @return T|null
+     * @noinspection PhpDocSignatureInspection
+     * @psalm-suppress InvalidReturnStatement
+     * @psalm-suppress InvalidReturnType
+     */
     public function instantiateClass(ReflectionClass $reflectionClass, array $predefinedArguments): ?object
     {
         $this->class = $reflectionClass;
@@ -42,11 +54,12 @@ class ReflectionClassInstantiatorWithExtension implements ReflectionClassInstant
         return $this->reflectionClassInstantiator->instantiateClass($this->class, $this->predefinedArguments);
     }
 
+    /** @psalm-suppress MixedAssignment */
     private function instantiateClassWithExtensionProperty(): ?object
     {
-        /** @noinspection OneTimeUseVariablesInspection */
         $property = $this->getPropertyThatContainsWantedClass();
-        return $property?->getValue($this->classInstantiator);
+        $value = $property?->getValue($this->classInstantiator);
+        return is_object($value) ? $value : null;
     }
 
     private function getPropertyThatContainsWantedClass(): ?ReflectionProperty
@@ -54,8 +67,6 @@ class ReflectionClassInstantiatorWithExtension implements ReflectionClassInstant
         $properties = $this->getPropertiesOfClassInstantiator();
         foreach ($properties as $property) {
             $className = $this->class->getName();
-            /** @noinspection PhpExpressionResultUnusedInspection */
-            $property->setAccessible(true);
             if ($property->getValue($this->classInstantiator) instanceof $className) {
                 return $property;
             }
@@ -70,6 +81,7 @@ class ReflectionClassInstantiatorWithExtension implements ReflectionClassInstant
         return new ReflectionPropertyCollection($properties);
     }
 
+    /** @psalm-suppress MixedAssignment */
     private function instantiateClassWithExtensionMethod(): ?object
     {
         $method = $this->getMethodThatReturnsWantedClass();
@@ -77,7 +89,8 @@ class ReflectionClassInstantiatorWithExtension implements ReflectionClassInstant
 
         $methodInvoker = new MethodInvoker($this->classInstantiator);
         $methodCallable = [$this->classInstantiator, $method->getName()];
-        return $methodInvoker->invokeMethod($methodCallable, $this->predefinedArguments);
+        $result = $methodInvoker->invokeMethod($methodCallable, $this->predefinedArguments);
+        return is_object($result) ? $result : null;
     }
 
     private function getMethodThatReturnsWantedClass(): ?ReflectionMethod
@@ -85,7 +98,7 @@ class ReflectionClassInstantiatorWithExtension implements ReflectionClassInstant
         $methods = $this->getMethodsFromClassInstantiator();
         foreach ($methods as $method) {
             $returnType = $method->getReturnType();
-            if ($returnType === null) continue;
+            if (!($returnType instanceof ReflectionNamedType)) continue;
 
             if ($returnType->getName() === $this->class->getName()) {
                 return $method;

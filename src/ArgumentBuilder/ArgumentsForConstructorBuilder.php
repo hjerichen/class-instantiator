@@ -20,6 +20,7 @@ class ArgumentsForConstructorBuilder
         $this->argumentForParameterBuilder = new ArgumentForParameterBuilder($classInstantiator);
     }
 
+    /** @param array<string,mixed> $predefinedArguments */
     public function setPredefinedArguments(array $predefinedArguments): void
     {
         $this->argumentForParameterBuilder->setPredefinedArguments($predefinedArguments);

@@ -8,6 +8,8 @@ use HJerichen\ClassInstantiator\Attribute\Instantiator;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
+ * @psalm-suppress ArgumentTypeCoercion
+ * @psalm-api
  */
 #[Instantiator(class: 'test', store: true)]
 class ClassWithDependencyOfEnvironmentWithAttributeNotClass

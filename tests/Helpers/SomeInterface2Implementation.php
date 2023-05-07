@@ -5,6 +5,7 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
+ * @psalm-suppress UnusedProperty
  */
 class SomeInterface2Implementation implements SomeInterface2
 {

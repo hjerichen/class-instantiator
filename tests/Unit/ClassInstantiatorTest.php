@@ -77,6 +77,9 @@ class ClassInstantiatorTest extends TestCase
         self::assertEquals($expected, $actual);
     }
 
+    /**
+     * @psalm-suppress ArgumentTypeCoercion Is testet.
+     */
     public function testInstantiateNotExistingClass(): void
     {
         $class = 'Test';
@@ -86,6 +89,7 @@ class ClassInstantiatorTest extends TestCase
         $this->classInstantiator->instantiateClass($class);
     }
 
+    /** @psalm-suppress PossiblyNullReference */
     public function testInstantiateClassWithIntegerParameterWithoutProvidedArguments(): void
     {
         $reflectionClass = new ReflectionClass(ClassWithIntegerParameter::class);

@@ -19,13 +19,10 @@ class InstantiateParameterException extends ClassInstantiatorException implement
 
     private function createMessage(): string
     {
-        /** @noinspection NullPointerExceptionInspection */
-        $className = $this->reflectionParameter->getDeclaringClass()->getName();
+        $className = (string)$this->reflectionParameter->getDeclaringClass()?->getName();
         $methodName = $this->reflectionParameter->getDeclaringFunction()->getName();
         $parameterName = $this->reflectionParameter->getName();
-        $parameterType = $this->reflectionParameter->getType();
-
-        $parameterTypeName = $parameterType?->getName() ?? '';
+        $parameterTypeName = (string)$this->reflectionParameter->getType();
 
         $message = "Can't instantiate \"%s $%s\" for method \"%s\" of class \"%s\"";
         return sprintf($message, $parameterTypeName, $parameterName, $methodName, $className);

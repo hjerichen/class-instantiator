@@ -25,6 +25,15 @@ class ReflectionClassInstantiatorWithAttribute implements ReflectionClassInstant
     ) {
     }
 
+    /**
+     * @template T of object
+     * @param ReflectionClass<T> $reflectionClass
+     * @param array<string,mixed> $predefinedArguments
+     * @return T|null
+     * @noinspection PhpDocSignatureInspection
+     * @psalm-suppress InvalidReturnStatement
+     * @psalm-suppress InvalidReturnType
+     */
     public function instantiateClass(ReflectionClass $reflectionClass, array $predefinedArguments): ?object
     {
         $this->class = $reflectionClass;
@@ -66,6 +75,7 @@ class ReflectionClassInstantiatorWithAttribute implements ReflectionClassInstant
         $this->instantiator = $instantiator;
     }
 
+    /** @param  array<string,mixed> $predefinedArguments */
     private function instantiateWith(array $predefinedArguments): ?object
     {
         if (isset($this->instantiator)) {

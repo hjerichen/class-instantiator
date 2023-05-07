@@ -9,6 +9,8 @@ use HJerichen\ClassInstantiator\ClassInstantiator;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
+ * @psalm-api
+ * @psalm-suppress UnusedProperty
  */
 class ClassInstantiatorExtended extends ClassInstantiator
 {

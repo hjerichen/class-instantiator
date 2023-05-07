@@ -24,10 +24,11 @@ class ClassInstantiator
     }
 
     /**
-     * @template T
+     * @template T of object
      * @param class-string<T> $class
-     * @param array $predefinedArguments
+     * @param array<string,mixed> $predefinedArguments
      * @return T
+     * @noinspection PhpDocSignatureInspection
      */
     public function instantiateClass(string $class, array $predefinedArguments = []): object
     {
@@ -35,13 +36,21 @@ class ClassInstantiator
         return $this->instantiateClassFromReflection($reflectionClass, $predefinedArguments);
     }
 
-    public function instantiateClassFromReflection(ReflectionClass $class, $predefinedArguments = []): object
+    /**
+     * @template T of object
+     * @param  ReflectionClass<T> $class
+     * @param  array<string,mixed> $predefinedArguments
+     * @return   T
+     * @noinspection PhpDocSignatureInspection
+     */
+    public function instantiateClassFromReflection(ReflectionClass $class, array $predefinedArguments = []): object
     {
         /** @noinspection OneTimeUseVariablesInspection */
         $reflectionClassInstantiator = $this->createReflectionClassInstantiator();
         return $reflectionClassInstantiator->instantiateClass($class, $predefinedArguments);
     }
 
+    /** @param class-string|null $class */
     public function injectObject(object $object, ?string $class = null): void
     {
         $this->objectStore->storeObject($object, $class);
@@ -56,7 +65,11 @@ class ClassInstantiator
         return $classInstantiator;
     }
 
-    /** @param class-string $class */
+    /**
+     * @template T of object
+     * @param class-string<T> $class
+     * @return ReflectionClass<T>
+     */
     private function reflectClass(string $class): ReflectionClass
     {
         try {
