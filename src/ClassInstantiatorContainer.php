@@ -2,7 +2,6 @@
 
 namespace HJerichen\ClassInstantiator;
 
-use HJerichen\ClassInstantiator\Exception\NotFoundInContainerException;
 use Psr\Container\ContainerInterface;
 
 class ClassInstantiatorContainer implements ContainerInterface
@@ -15,6 +14,10 @@ class ClassInstantiatorContainer implements ContainerInterface
     ) {
     }
 
+    /**
+     * @param class-string $id
+     * @psalm-suppress MoreSpecificImplementedParamType
+     */
     public function has(string $id): bool
     {
         return class_exists($id);
@@ -26,14 +29,13 @@ class ClassInstantiatorContainer implements ContainerInterface
      * @return T
      * @noinspection PhpDocSignatureInspection
      * @psalm-suppress MoreSpecificImplementedParamType
+     * @psalm-suppress InvalidReturnStatement
+     * @psalm-suppress InvalidReturnType
      */
     public function get(string $id): object
     {
         $this->loadEntry($id);
-        if ($this->entries[$id] instanceof $id) {
-            return $this->entries[$id];
-        }
-        throw new NotFoundInContainerException();
+        return $this->entries[$id];
     }
 
     /** @param class-string $id */

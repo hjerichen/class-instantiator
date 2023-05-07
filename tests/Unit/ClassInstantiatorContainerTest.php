@@ -37,6 +37,10 @@ class ClassInstantiatorContainerTest extends TestCase
         self::assertTrue($actual);
     }
 
+    /**
+     * @psalm-suppress ArgumentTypeCoercion
+     * @psalm-suppress UndefinedClass
+     */
     public function testHasForNotExistingClass(): void
     {
         $actual = $this->container->has('SomeClassDoesNotExist');
