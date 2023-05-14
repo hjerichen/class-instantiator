@@ -3,6 +3,7 @@
 namespace HJerichen\ClassInstantiator\FromReflection;
 
 use HJerichen\ClassInstantiator\Attribute\Instantiator as InstantiatorAttribute;
+use HJerichen\ClassInstantiator\Attribute\InstantiatorOfAttributeLoader;
 use HJerichen\ClassInstantiator\ClassInstantiator;
 use HJerichen\ClassInstantiator\Exception\InstantiatorAttributeException;
 use HJerichen\ClassInstantiator\ObjectStore;
@@ -15,12 +16,12 @@ use Throwable;
 class ReflectionClassInstantiatorWithAttribute implements ReflectionClassInstantiator
 {
     private ?InstantiatorAttribute $attribute;
-    private ClassInstantiator $instantiator;
+    private ?ClassInstantiator $instantiator;
     private ReflectionClass $class;
 
     public function __construct(
+        private readonly InstantiatorOfAttributeLoader $instantiatorOfAttributeLoader,
         private readonly ReflectionClassInstantiator $reflectionClassInstantiator,
-        private readonly ClassInstantiator $instantiatorOfInstantiator,
         private readonly ObjectStore $objectStore
     ) {
     }
@@ -65,14 +66,7 @@ class ReflectionClassInstantiatorWithAttribute implements ReflectionClassInstant
     private function loadInstantiatorFromAttribute(): void
     {
         if (!isset($this->attribute)) return;
-        if (!isset($this->attribute->class)) return;
-        if ($this->attribute->class === get_class($this->instantiatorOfInstantiator)) return;
-
-        $instantiator = $this->instantiatorOfInstantiator->instantiateClass($this->attribute->class);
-        if (!($instantiator instanceof ClassInstantiator)) {
-            throw $this->exceptionForNotAClassInstantiator();
-        }
-        $this->instantiator = $instantiator;
+        $this->instantiator = $this->instantiatorOfAttributeLoader->execute($this->attribute);
     }
 
     /** @param  array<string,mixed> $predefinedArguments */
@@ -96,13 +90,6 @@ class ReflectionClassInstantiatorWithAttribute implements ReflectionClassInstant
     private function cleanup(): void
     {
         unset($this->attribute, $this->instantiator, $this->class);
-    }
-
-    private function exceptionForNotAClassInstantiator(): InstantiatorAttributeException
-    {
-        $message = 'Invalid value for Attribute "Instantiator": Value in class %s is not an instance of ClassInstantiator';
-        $message = sprintf($message, $this->class->getName());
-        return new InstantiatorAttributeException($message);
     }
 
     private function exceptionForAttributeException(Throwable $exception): InstantiatorAttributeException

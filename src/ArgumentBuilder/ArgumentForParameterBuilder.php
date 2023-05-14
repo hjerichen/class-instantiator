@@ -1,7 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+/** @noinspection OneTimeUseVariablesInspection */
+declare(strict_types=1);
 
 namespace HJerichen\ClassInstantiator\ArgumentBuilder;
 
+use HJerichen\ClassInstantiator\Attribute\InstantiatorOfAttributeLoader;
 use HJerichen\ClassInstantiator\ClassInstantiator;
 use HJerichen\ClassInstantiator\Exception\InstantiateParameterException;
 use HJerichen\Collections\Reflection\ReflectionParameterCollection;
@@ -90,6 +93,14 @@ class ArgumentForParameterBuilder
         if (!($parameterType instanceof ReflectionNamedType) || $parameterType->isBuiltin()) {
             throw new InstantiateParameterException($parameter);
         }
-        return $this->classInstantiator->instantiateClass($parameterType->getName(), $this->predefinedArguments);
+
+        $classInstantiator = $this->getInstantiatorForParameter($parameter);
+        return $classInstantiator->instantiateClass($parameterType->getName(), $this->predefinedArguments);
+    }
+
+    private function getInstantiatorForParameter(ReflectionParameter $parameter): ClassInstantiator
+    {
+        $instantiatorLoader = new InstantiatorOfAttributeLoader($this->classInstantiator);
+        return $instantiatorLoader->executeForAttributeList($parameter->getAttributes()) ?? $this->classInstantiator;
     }
 }

@@ -28,6 +28,11 @@ class ClassInstantiatorExtended extends ClassInstantiator
         return new ClassWithIntegerParameter(5);
     }
 
+    public function createIntegerObject2(): ClassWithIntegerParameter
+    {
+        return new ClassWithIntegerParameter(55);
+    }
+
     public function createIntegerObjectWithParameter(int $value): ClassWithTwoIntegerParameters
     {
         return new ClassWithTwoIntegerParameters(5, $value);

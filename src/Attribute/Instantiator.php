@@ -7,7 +7,7 @@ use Attribute;
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
  */
-#[Attribute(Attribute::TARGET_CLASS)]
+#[Attribute(Attribute::TARGET_CLASS|Attribute::TARGET_PARAMETER)]
 class Instantiator
 {
     /** @param class-string|null $class */

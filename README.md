@@ -110,7 +110,71 @@ $object = $instantiator->instantiateClass(ClassB::class);
 ```
 
 Instantiate classes with an extension has a higher priority then using an attribute.  
-This allows overwriting the attribute and instantiate classes depending on your current needs.  
+This allows overwriting the attribute and instantiate classes depending on your current needs.
+
+You can also use the instantiator attribute to let the class build from a method in a specific instantiator:
+
+```php
+<?php
+
+use HJerichen\ClassInstantiator\Attribute\Instantiator;
+use HJerichen\ClassInstantiator\ClassInstantiator;
+
+#[Instantiator(class: MyInstantiator::class)]
+class ClassA {
+    public function __construct(PDO $database, int $id) {}
+}
+
+class ClassB {
+    public function __construct(ClassA $a) {}
+}
+
+class MyInstantiator extends ClassInstantiator {    
+    # The class instantiator will match the return type to the class type 
+    public function buildClassA(): ClassA
+    {
+        $database = new PDO('dsn');
+        return new ClassA($database, 55);
+    }
+}
+
+$instantiator = new ClassInstantiator();
+$object = $instantiator->instantiateClass(ClassB::class);
+```
+
+The attribute can also be used on a constructor parameter:
+
+```php
+<?php
+
+use HJerichen\ClassInstantiator\Attribute\Instantiator;
+use HJerichen\ClassInstantiator\ClassInstantiator;
+
+class ClassA {
+    public function __construct(PDO $database, int $id) {}
+}
+
+class ClassB {
+    public function __construct(
+        #[Instantiator(class: MyInstantiator::class)] ClassA $a
+    ) {
+    }
+}
+
+class MyInstantiator extends ClassInstantiator {    
+    # The class instantiator will match the return type to the class type 
+    public function buildClassA(): ClassA
+    {
+        $database = new PDO('dsn');
+        return new ClassA($database, 55);
+    }
+}
+
+$instantiator = new ClassInstantiator();
+$object = $instantiator->instantiateClass(ClassB::class);
+```
+The attribute on the parameter has a higher priority as the one on the class itself.
+
 
 ##### Storing Objects
 

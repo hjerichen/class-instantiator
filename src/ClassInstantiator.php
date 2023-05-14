@@ -2,6 +2,7 @@
 
 namespace HJerichen\ClassInstantiator;
 
+use HJerichen\ClassInstantiator\Attribute\InstantiatorOfAttributeLoader;
 use HJerichen\ClassInstantiator\FromReflection\ReflectionClassInstantiator;
 use HJerichen\ClassInstantiator\FromReflection\ReflectionClassInstantiatorBase;
 use HJerichen\ClassInstantiator\Exception\UnknownClassException;
@@ -58,10 +59,17 @@ class ClassInstantiator
 
     protected function createReflectionClassInstantiator(): ReflectionClassInstantiator
     {
+        $instantiatorOfAttributeLoader = new InstantiatorOfAttributeLoader($this);
         $classInstantiator = new ReflectionClassInstantiatorBase($this);
-        $classInstantiator = new ReflectionClassInstantiatorWithAttribute($classInstantiator, $this, $this->objectStore);
-        $classInstantiator = new ReflectionClassInstantiatorWithExtension($classInstantiator, $this);
-        $classInstantiator = new ReflectionClassInstantiatorWithObjectStore($classInstantiator, $this->objectStore);
+        $classInstantiator = new ReflectionClassInstantiatorWithAttribute(
+            $instantiatorOfAttributeLoader, $classInstantiator, $this->objectStore
+        );
+        $classInstantiator = new ReflectionClassInstantiatorWithExtension(
+            $classInstantiator, $this
+        );
+        $classInstantiator = new ReflectionClassInstantiatorWithObjectStore(
+            $classInstantiator, $this->objectStore
+        );
         return $classInstantiator;
     }
 

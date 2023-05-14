@@ -17,6 +17,7 @@ use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWit
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAttributeWrongClass;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAttributeWrongValue;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfIntegerClass;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfIntegerClass2;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfInterface;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithIntegerParameter;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithMixedParameters;
@@ -239,7 +240,7 @@ class ClassInstantiatorTest extends TestCase
         $class = ClassWithDependencyOfEnvironmentWithAttributeWrongClass::class;
 
         $this->expectException(InstantiatorAttributeException::class);
-        $this->expectExceptionMessage('Invalid value for Attribute "Instantiator": Value in class HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAttributeWrongClass is not an instance of ClassInstantiator');
+        $this->expectExceptionMessage('Invalid value for Attribute "Instantiator": Value HJerichen\ClassInstantiator\Test\Helpers\SimpleClass is not an instance of ClassInstantiator');
 
         $this->classInstantiator->instantiateClass($class);
     }
@@ -349,6 +350,13 @@ class ClassInstantiatorTest extends TestCase
         $object1 = $this->classInstantiatorExtended->instantiateClass($class);
         $object2 = $this->classInstantiatorExtended->instantiateClass($class);
         self::assertSame($object1, $object2);
+    }
+
+    public function testClassWithDependencyOfIntegerClassUsesAttributeOnConstructorProperty(): void
+    {
+        $expected = new ClassWithDependencyOfIntegerClass2(new ClassWithIntegerParameter(5));
+        $actual = $this->classInstantiator->instantiateClass(ClassWithDependencyOfIntegerClass2::class);
+        $this->assertEquals($expected, $actual);
     }
 
     /* HELPERS */
