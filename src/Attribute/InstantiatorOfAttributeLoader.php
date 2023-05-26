@@ -4,6 +4,7 @@ namespace HJerichen\ClassInstantiator\Attribute;
 
 use HJerichen\ClassInstantiator\Attribute\Instantiator as InstantiatorAttribute;
 use HJerichen\ClassInstantiator\ClassInstantiator;
+use HJerichen\ClassInstantiator\ClassInstantiatorWithSpecificMethod;
 use HJerichen\ClassInstantiator\Exception\InstantiatorAttributeException;
 use ReflectionAttribute;
 
@@ -34,6 +35,10 @@ class InstantiatorOfAttributeLoader
         $instantiator = $this->instantiator->instantiateClass($attribute->class);
         if (!($instantiator instanceof ClassInstantiator)) {
             throw $this->exceptionForNotAClassInstantiator($attribute->class);
+        }
+
+        if ($attribute->method) {
+            $instantiator = new ClassInstantiatorWithSpecificMethod($instantiator, $attribute->method);
         }
         return $instantiator;
     }

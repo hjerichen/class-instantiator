@@ -18,6 +18,9 @@ use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWit
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfEnvironmentWithAttributeWrongValue;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfIntegerClass;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfIntegerClass2;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfIntegerClass3;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfIntegerClass4;
+use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfIntegerClass5;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithDependencyOfInterface;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithIntegerParameter;
 use HJerichen\ClassInstantiator\Test\Helpers\ClassWithMixedParameters;
@@ -357,6 +360,34 @@ class ClassInstantiatorTest extends TestCase
         $expected = new ClassWithDependencyOfIntegerClass2(new ClassWithIntegerParameter(5));
         $actual = $this->classInstantiator->instantiateClass(ClassWithDependencyOfIntegerClass2::class);
         $this->assertEquals($expected, $actual);
+    }
+
+    public function testClassWithDependencyOfIntegerClassUsesAttributeOnConstructorPropertyWithSpecificMethod(): void
+    {
+        $expected = new ClassWithDependencyOfIntegerClass3(new ClassWithIntegerParameter(55));
+        $actual = $this->classInstantiator->instantiateClass(ClassWithDependencyOfIntegerClass3::class);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testClassWithDependencyOfIntegerClassUsesAttributeOnConstructorPropertyWithWrongMethod(): void
+    {
+        $instantiatorClass = ClassInstantiatorExtended::class;
+
+        $message = "Method $instantiatorClass::asdsdasd in attribute does not exist or is not callable.";
+        $this->expectExceptionObject(new InstantiatorAttributeException($message));
+
+        $this->classInstantiator->instantiateClass(ClassWithDependencyOfIntegerClass4::class);
+    }
+
+    public function testClassWithDependencyOfIntegerClassUsesAttributeOnConstructorPropertyWithSpecificMethodReturnsWrongObject(): void
+    {
+        $instantiatorClass = ClassInstantiatorExtended::class;
+        $class = ClassWithIntegerParameter::class;
+
+        $message = "Method $instantiatorClass::createSome in attribute did not return instance of $class.";
+        $this->expectExceptionObject(new InstantiatorAttributeException($message));
+
+        $this->classInstantiator->instantiateClass(ClassWithDependencyOfIntegerClass5::class);
     }
 
     /* HELPERS */

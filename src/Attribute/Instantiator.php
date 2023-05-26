@@ -13,7 +13,8 @@ class Instantiator
     /** @param class-string|null $class */
     public function __construct(
         public ?string $class = null,
-        public bool $store = false
+        public bool $store = false,
+        public ?string $method = null
     ) {
     }
 }

@@ -175,6 +175,44 @@ $object = $instantiator->instantiateClass(ClassB::class);
 ```
 The attribute on the parameter has a higher priority as the one on the class itself.
 
+It is also possible to specify a method of the instantiator in the attribute.
+
+```php
+<?php
+
+use HJerichen\ClassInstantiator\Attribute\Instantiator;
+use HJerichen\ClassInstantiator\ClassInstantiator;
+
+class ClassA {
+    public function __construct(PDO $database, int $id) {}
+}
+
+class ClassB {
+    public function __construct(
+        #[Instantiator(class: MyInstantiator::class, method: 'someMethod')] ClassA $a
+    ) {
+    }
+}
+
+class MyInstantiator extends ClassInstantiator {    
+    # The class instantiator will not use this method to build a ClassA insance. 
+    public function buildClassA(): ClassA
+    {
+        $database = new PDO('dsn');
+        return new ClassA($database, 55);
+    }
+    # Is uses this method, because is is specified in the attribute.
+    public function someMethod(): ClassA
+    {
+        $database = new PDO('dsn');
+        return new ClassA($database, 60);
+    }
+}
+
+$instantiator = new ClassInstantiator();
+$object = $instantiator->instantiateClass(ClassB::class);
+```
+
 
 ##### Storing Objects
 
