@@ -15,6 +15,7 @@ class ClassWithDependencyOfIntegerClass4
 {
     private readonly ClassWithIntegerParameter $object;
 
+    /** @psalm-suppress PossiblyUnusedMethod */
     public function __construct(
         #[Instantiator(class: ClassInstantiatorExtended::class, method: 'asdsdasd')] ClassWithIntegerParameter $object
     ) {
