@@ -5,6 +5,7 @@ namespace HJerichen\ClassInstantiator\ArgumentBuilder;
 use HJerichen\ClassInstantiator\ClassInstantiator;
 use HJerichen\ClassInstantiator\Exception\InstantiateParameterException;
 use HJerichen\Collections\Reflection\ReflectionParameterCollection;
+use ReflectionClass;
 use ReflectionParameter;
 
 /**
@@ -42,7 +43,6 @@ class ArgumentForParameterBuilder
     /**
      * @param ReflectionParameter $parameter
      * @return mixed|null
-     * @noinspection PhpMissingReturnTypeInspection
      */
     private function getPredefinedArgumentForParameter(ReflectionParameter $parameter)
     {
@@ -58,7 +58,6 @@ class ArgumentForParameterBuilder
      * @param $argument
      * @param ReflectionParameter $parameter
      * @return mixed
-     * @noinspection PhpMissingReturnTypeInspection
      */
     private function convertArgumentForParameter($argument, ReflectionParameter $parameter)
     {
@@ -70,16 +69,22 @@ class ArgumentForParameterBuilder
 
     private function isArgumentAStringButIntegerIsNeeded($argument, ReflectionParameter $parameter): bool
     {
-        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
         return is_string($argument) && is_numeric($argument) && $parameter->getType() && $parameter->getType()->getName();
     }
 
     private function instantiateParameter(ReflectionParameter $parameter): object
     {
-        $classOfParameter = $parameter->getClass();
+        $classOfParameter = $this->getClassOfParameter($parameter);
         if ($classOfParameter === null) {
             throw new InstantiateParameterException($parameter);
         }
         return $this->classInstantiator->instantiateClass($classOfParameter->getName(), $this->predefinedArguments);
+    }
+
+    private function getClassOfParameter(ReflectionParameter $parameter): ?ReflectionClass
+    {
+        return $parameter->getType() && !$parameter->getType()->isBuiltin()
+            ? new ReflectionClass($parameter->getType()->getName())
+            : null;
     }
 }
