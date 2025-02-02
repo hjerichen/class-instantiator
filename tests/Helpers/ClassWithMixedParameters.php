@@ -7,13 +7,13 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
  * @author Heiko Jerichen <heiko@jerichen.de>
  * @psalm-suppress UnusedProperty
  */
-class ClassWithMixedParameters
+readonly class ClassWithMixedParameters
 {
     public function __construct(
-        private readonly int $integer,
-        private readonly string $string,
-        private readonly array $array,
-        private readonly SimpleClass $object
+        private int $integer,
+        private string $string,
+        private array $array,
+        private SimpleClass $object
     ) {
     }
 }

@@ -7,11 +7,11 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
  * @author Heiko Jerichen <heiko@jerichen.de>
  * @psalm-suppress UnusedProperty
  */
-class ClassWithDependencyOfIntegerClass
+readonly class ClassWithDependencyOfIntegerClass
 {
     public function __construct(
-        private readonly int $integer,
-        private readonly ClassWithIntegerParameter $object
+        private int $integer,
+        private ClassWithIntegerParameter $object
     ) {
     }
 }

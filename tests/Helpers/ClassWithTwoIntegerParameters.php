@@ -7,11 +7,11 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
  * @author Heiko Jerichen <heiko@jerichen.de>
  * @psalm-suppress UnusedProperty
  */
-class ClassWithTwoIntegerParameters
+readonly class ClassWithTwoIntegerParameters
 {
     public function __construct(
-        private readonly int $value1,
-        private readonly int $value2
+        private int $value1,
+        private int $value2
     ) {
     }
 }

@@ -9,10 +9,10 @@ use ReflectionClass;
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
  */
-class ReflectionClassInstantiatorBase implements ReflectionClassInstantiator
+readonly class ReflectionClassInstantiatorBase implements ReflectionClassInstantiator
 {
     public function __construct(
-        private readonly ClassInstantiator $classInstantiator
+        private ClassInstantiator $classInstantiator
     ) {
     }
 

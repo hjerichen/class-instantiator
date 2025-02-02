@@ -7,11 +7,11 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
  * @author Heiko Jerichen <heiko@jerichen.de>
  * @psalm-suppress UnusedProperty
  */
-class ClassWithTwoSimpleDependencies
+readonly class ClassWithTwoSimpleDependencies
 {
     public function __construct(
-        private readonly SimpleClass $simpleClass,
-        private readonly ClassWithSimpleDependency $classWithDependency
+        private SimpleClass $simpleClass,
+        private ClassWithSimpleDependency $classWithDependency
     ) {
     }
 }

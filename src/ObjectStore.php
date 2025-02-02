@@ -40,7 +40,8 @@ class ObjectStore
      */
     public function retrieveObjectForClass(string $class): ?object
     {
-       return (self::$objects[$class] instanceof $class) ? self::$objects[$class] : null;
+        $object = self::$objects[$class] ?? null;
+        return ($object instanceof $class) ? $object : null;
     }
 
     public function flush(): void

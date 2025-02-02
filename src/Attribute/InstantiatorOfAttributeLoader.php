@@ -8,10 +8,10 @@ use HJerichen\ClassInstantiator\ClassInstantiatorWithSpecificMethod;
 use HJerichen\ClassInstantiator\Exception\InstantiatorAttributeException;
 use ReflectionAttribute;
 
-class InstantiatorOfAttributeLoader
+readonly class InstantiatorOfAttributeLoader
 {
     public function __construct(
-        private readonly ClassInstantiator $instantiator
+        private ClassInstantiator $instantiator
     ) {
     }
 

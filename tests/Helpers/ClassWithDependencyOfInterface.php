@@ -7,10 +7,10 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
  * @author Heiko Jerichen <heiko@jerichen.de>
  * @psalm-suppress UnusedProperty
  */
-class ClassWithDependencyOfInterface
+readonly class ClassWithDependencyOfInterface
 {
     public function __construct(
-        private readonly SomeInterface $someInterface
+        private SomeInterface $someInterface
     ) {
     }
 }

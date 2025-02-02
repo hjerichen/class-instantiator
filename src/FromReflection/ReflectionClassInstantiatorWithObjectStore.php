@@ -5,11 +5,11 @@ namespace HJerichen\ClassInstantiator\FromReflection;
 use HJerichen\ClassInstantiator\ObjectStore;
 use ReflectionClass;
 
-class ReflectionClassInstantiatorWithObjectStore implements ReflectionClassInstantiator
+readonly class ReflectionClassInstantiatorWithObjectStore implements ReflectionClassInstantiator
 {
     public function __construct(
-        private readonly ReflectionClassInstantiator $reflectionClassInstantiator,
-        private readonly ObjectStore $objectStore
+        private ReflectionClassInstantiator $reflectionClassInstantiator,
+        private ObjectStore $objectStore
     ) {
     }
 

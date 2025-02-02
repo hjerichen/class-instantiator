@@ -11,13 +11,13 @@ use HJerichen\ClassInstantiator\Attribute\Instantiator;
  * @author Heiko Jerichen <heiko@jerichen.de>
  * @psalm-suppress UnusedProperty
  */
-class ClassWithDependencyOfIntegerClass4
+readonly class ClassWithDependencyOfIntegerClass4
 {
-    private readonly ClassWithIntegerParameter $object;
+    private ClassWithIntegerParameter $object;
 
     /** @psalm-suppress PossiblyUnusedMethod */
     public function __construct(
-        #[Instantiator(class: ClassInstantiatorExtended::class, method: 'asdsdasd')] ClassWithIntegerParameter $object
+        #[Instantiator(class: ClassInstantiatorExtended::class, method: 'false')] ClassWithIntegerParameter $object
     ) {
         $this->object = $object;
     }

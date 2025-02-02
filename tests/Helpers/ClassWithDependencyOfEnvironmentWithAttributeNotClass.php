@@ -12,10 +12,10 @@ use HJerichen\ClassInstantiator\Attribute\Instantiator;
  * @psalm-api
  */
 #[Instantiator(class: 'test', store: true)]
-class ClassWithDependencyOfEnvironmentWithAttributeNotClass
+readonly class ClassWithDependencyOfEnvironmentWithAttributeNotClass
 {
     public function __construct(
-        private readonly Environment $environment
+        private Environment $environment
     ) {
     }
 

@@ -11,9 +11,9 @@ use HJerichen\ClassInstantiator\Attribute\Instantiator;
  * @author Heiko Jerichen <heiko@jerichen.de>
  * @psalm-suppress UnusedProperty
  */
-class ClassWithDependencyOfIntegerClass5
+readonly class ClassWithDependencyOfIntegerClass5
 {
-    private readonly ClassWithIntegerParameter $object;
+    private ClassWithIntegerParameter $object;
 
     /** @psalm-suppress PossiblyUnusedMethod */
     public function __construct(

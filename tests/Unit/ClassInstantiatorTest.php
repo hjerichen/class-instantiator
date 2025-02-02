@@ -373,7 +373,7 @@ class ClassInstantiatorTest extends TestCase
     {
         $instantiatorClass = ClassInstantiatorExtended::class;
 
-        $message = "Method $instantiatorClass::asdsdasd in attribute does not exist or is not callable.";
+        $message = "Method $instantiatorClass::false in attribute does not exist or is not callable.";
         $this->expectExceptionObject(new InstantiatorAttributeException($message));
 
         $this->classInstantiator->instantiateClass(ClassWithDependencyOfIntegerClass4::class);

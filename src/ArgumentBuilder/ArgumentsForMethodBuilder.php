@@ -9,13 +9,13 @@ use ReflectionMethod;
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
  */
-class ArgumentsForMethodBuilder
+readonly class ArgumentsForMethodBuilder
 {
-    private readonly ArgumentForParameterBuilder $argumentForParameterBuilder;
+    private ArgumentForParameterBuilder $argumentForParameterBuilder;
 
     public function __construct(
         ClassInstantiator $classInstantiator,
-        private readonly ReflectionMethod $reflectionMethod
+        private ReflectionMethod $reflectionMethod
     ) {
         $this->argumentForParameterBuilder = new ArgumentForParameterBuilder($classInstantiator);
     }

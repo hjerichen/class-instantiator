@@ -7,10 +7,10 @@ namespace HJerichen\ClassInstantiator\Test\Helpers;
  * @author Heiko Jerichen <heiko@jerichen.de>
  * @psalm-suppress UnusedProperty
  */
-class ClassWithDependencyOfEnvironment
+readonly class ClassWithDependencyOfEnvironment
 {
     public function __construct(
-        private readonly Environment $environment
+        private Environment $environment
     ) {
     }
 }
