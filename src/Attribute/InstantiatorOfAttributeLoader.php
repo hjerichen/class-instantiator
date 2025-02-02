@@ -37,7 +37,7 @@ class InstantiatorOfAttributeLoader
             throw $this->exceptionForNotAClassInstantiator($attribute->class);
         }
 
-        if ($attribute->method) {
+        if ($attribute->method !== null && trim($attribute->method) !== '') {
             $instantiator = new ClassInstantiatorWithSpecificMethod($instantiator, $attribute->method);
         }
         return $instantiator;
