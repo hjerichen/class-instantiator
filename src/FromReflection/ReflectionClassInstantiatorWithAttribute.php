@@ -35,6 +35,7 @@ class ReflectionClassInstantiatorWithAttribute implements ReflectionClassInstant
      * @psalm-suppress InvalidReturnStatement
      * @psalm-suppress InvalidReturnType
      */
+    #[\Override]
     public function instantiateClass(ReflectionClass $reflectionClass, array $predefinedArguments): ?object
     {
         $this->class = $reflectionClass;

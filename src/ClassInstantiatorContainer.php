@@ -18,6 +18,7 @@ class ClassInstantiatorContainer implements ContainerInterface
      * @param class-string $id
      * @psalm-suppress MoreSpecificImplementedParamType
      */
+    #[\Override]
     public function has(string $id): bool
     {
         return class_exists($id);
@@ -32,6 +33,7 @@ class ClassInstantiatorContainer implements ContainerInterface
      * @psalm-suppress InvalidReturnStatement
      * @psalm-suppress InvalidReturnType
      */
+    #[\Override]
     public function get(string $id): object
     {
         $this->loadEntry($id);

@@ -20,6 +20,7 @@ readonly class ReflectionClassInstantiatorWithObjectStore implements ReflectionC
      * @return T|null
      * @noinspection PhpDocSignatureInspection
      */
+    #[\Override]
     public function instantiateClass(ReflectionClass $reflectionClass, array $predefinedArguments): ?object
     {
         if ($this->objectStore->hasObjectForClass($reflectionClass->getName())) {

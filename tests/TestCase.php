@@ -6,6 +6,7 @@ use HJerichen\ClassInstantiator\ObjectStore;
 
 class TestCase extends \PHPUnit\Framework\TestCase
 {
+    #[\Override]
     protected function tearDown(): void
     {
         parent::tearDown();

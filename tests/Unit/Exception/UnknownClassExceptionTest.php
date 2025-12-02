@@ -16,6 +16,7 @@ class UnknownClassExceptionTest extends TestCase
     /**
      *
      */
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();

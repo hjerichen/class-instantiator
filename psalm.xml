@@ -13,12 +13,14 @@
 		<directory name="tests"/>
 		<ignoreFiles>
 			<directory name="vendor/phpunit"/>
+			<directory name="vendor/phpspec"/>
 		</ignoreFiles>
 	</projectFiles>
 	<issueHandlers>
 		<RedundantPropertyInitializationCheck errorLevel="suppress"/>
 		<PropertyNotSetInConstructor errorLevel="suppress"/>
 		<MissingConstructor errorLevel="suppress"/>
+        <ClassMustBeFinal errorLevel="suppress"/>
 		<InvalidDocblock errorLevel="suppress"/>
 	</issueHandlers>
 	<plugins>

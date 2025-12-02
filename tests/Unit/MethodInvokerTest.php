@@ -32,9 +32,7 @@ class MethodInvokerTest extends TestCase
     /** @var ObjectProphecy<ClassInstantiator> */
     private ObjectProphecy $classInstantiator;
 
-    /**
-     *
-     */
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -148,6 +146,7 @@ class MethodInvokerTest extends TestCase
 
     /* HELPERS */
 
+    /** @psalm-suppress UndefinedMagicMethod,MixedMethodCall */
     private function setUpClassInstantiatorCreatesSimpleClass(array $predefinedArguments): SimpleClass
     {
         $simpleClass = new SimpleClass();
@@ -155,6 +154,7 @@ class MethodInvokerTest extends TestCase
         return $simpleClass;
     }
 
+    /** @psalm-suppress UndefinedMagicMethod,MixedMethodCall */
     private function setUpClassInstantiatorThrowsException(): Exception
     {
         $exception = $this->prophesize(InstantiateParameterException::class)->reveal();

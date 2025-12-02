@@ -23,6 +23,7 @@ class ClassInstantiatorWithSpecificMethod extends ClassInstantiator
      * @noinspection PhpDocSignatureInspection
      * @psalm-suppress MixedAssignment
      */
+    #[\Override]
     public function instantiateClassFromReflection(ReflectionClass $class, array $predefinedArguments = []): object
     {
         $callable = [$this->classInstantiator, $this->method];

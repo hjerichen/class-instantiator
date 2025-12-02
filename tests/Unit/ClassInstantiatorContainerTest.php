@@ -15,6 +15,7 @@ class ClassInstantiatorContainerTest extends TestCase
 {
     private ClassInstantiatorContainer $container;
 
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();

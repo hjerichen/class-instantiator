@@ -16,6 +16,7 @@ readonly class ReflectionClassInstantiatorBase implements ReflectionClassInstant
     ) {
     }
 
+    #[\Override]
     public function instantiateClass(ReflectionClass $reflectionClass, array $predefinedArguments): ?object
     {
         $argumentBuilder = new ArgumentsForConstructorBuilder($this->classInstantiator, $reflectionClass);
